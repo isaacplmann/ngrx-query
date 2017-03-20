@@ -1,0 +1,13 @@
+<header>
+  <h1 class="title">Test</h1>
+</header>
+<main>
+  <label for="isShown">Show Connected Element?</label> <input id="isShown" type="checkbox" [(ngModel)]="isShown">
+  <nqConnect *ngIf="isShown" [config]="config" (response)="data = $event" #connect="nqConnect">
+    {{ data?.chartsById?.test }}
+    <a href (click)="connect.forceRequest(); $event.preventDefault()">Force Refresh</a>
+  </nqConnect>
+</main>
+<footer>
+  <a href="https://github.com/isaacplmann/ngrx-query">Ngrx Query</a>
+</footer>
