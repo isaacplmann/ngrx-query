@@ -1,8 +1,6 @@
-# Your Awesome Library
+# Ngx CLI Library Seed
 
-This library was seeded by [ngx-cli-library-seed](https://github.com/isaacplmann/ngx-cli-library-seed).
-
-Please fill replace this document with instructions on how to use Your Awesome Library.
+Please replace this document with instructions on how to use Your Awesome Library.
 
 `ngx-cli-library-seed` provides the following features:
 1. Angular cli for building and running demo code
