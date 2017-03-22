@@ -1,6 +1,6 @@
 import { NgrxQueryCliPage } from './app.po';
 
-describe('ngrx-query-cli App', () => {
+describe('ngrx-query App', () => {
   let page: NgrxQueryCliPage;
 
   beforeEach(() => {

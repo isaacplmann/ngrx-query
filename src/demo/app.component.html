@@ -1,13 +1,10 @@
 <header>
-  <h1 class="title">Test</h1>
+  <h1 class="title">Your Awesome Library</h1>
 </header>
 <main>
-  <label for="isShown">Show Connected Element?</label> <input id="isShown" type="checkbox" [(ngModel)]="isShown">
-  <nqConnect *ngIf="isShown" [config]="config" (response)="data = $event" #connect="nqConnect">
-    {{ data?.chartsById?.test }}
-    <a href (click)="connect.forceRequest(); $event.preventDefault()">Force Refresh</a>
-  </nqConnect>
+  {{ something }}
+  <a href (click)="log('log this!'); $event.preventDefault()">Log something</a>
 </main>
 <footer>
-  <a href="https://github.com/isaacplmann/ngrx-query">Ngrx Query</a>
+  <a href="https://github.com/isaacplmann/ngx-cli-library-seed">Ngx CLI Library Seed</a>
 </footer>
