@@ -1,9 +1,21 @@
-// import needed polyfills for the library
-// i.e. import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/retryWhen';
+import 'rxjs/add/observable/range';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/zip';
 
-// export main module
-export { YourAwesomeLibraryModule } from './your-awesome-library';
-
-// export all components/directives/pipes that your module exports
-// export all services that your module provides
-// export all interfaces that users of your module will need to use
+export { NgrxQueryModule } from './ngrx-query';
+export { NgrxQueryEffects } from './services/effects.service';
+export { default as entitiesReducer } from './redux-query/reducers/entities';
+export { default as queriesReducer } from './redux-query/reducers/queries';
+export * from './redux-query/selectors';
+export { ConnectService, ConnectRequestParams, ConnectMutateParams } from './services/connect.service';
+export { ConnectRequestDirective } from './directives/connect.directive';
+export { NGRX_QUERY_CONFIG } from './helpers/config';
+export { NgrxQueryConfig } from './helpers/ngrxQueryConfig';
+export { RequestParams, MutateParams, requestAsync, mutateAsync } from './helpers/actions';
