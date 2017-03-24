@@ -1,6 +1,6 @@
 # ngrx-query
 
-`ngrx-query` is a library for querying and managing network state in [Angular (2+)](https://angular.io) applications that use [ngrx](https://github.com/ngrx/store).  It is a port of the [redux-query](https://github.com/amplitude/redux-query) library - many thanks to `redux-query` for coming up with a very useful library.  For an in-depth explanation of what problems `redux-query` (and, by extension, `ngrx-query`) solve read [Introducing redux-query](https://amplitude.engineering/introducing-redux-query-7734e7215b3b).
+`ngrx-query` is a library for querying and managing network state in [Angular (2+)](https://angular.io) applications that use [ngrx](https://github.com/ngrx/store).  It is a port of the [redux-query](https://github.com/amplitude/redux-query) library - many thanks to `redux-query` for coming up with a very useful library.  For an in-depth explanation of what problems `redux-query` (and, by extension, `ngrx-query`) solve, read [Introducing redux-query](https://amplitude.engineering/introducing-redux-query-7734e7215b3b).
 
 With `ngrx-query` you can:
 
