@@ -163,39 +163,12 @@ The `prevValue` is whatever value is selected from the `entities` reducer for th
 (prevValue: any) => any
 ```
 
-### `ngConnect` - TODO
+### `ngConnect`
 
-Use the `connectRequest` higher-order component to declare network dependencies for a React component. `connectRequest` takes a function that transforms the component `props` to a request query config or an array of request query configs. Example usage:
+Use the `nqConnect` attribute directive to declare network dependencies for an Angular component. `nqConnect` takes a request query config object. Example usage:
 
-```javascript
-import { connectRequest } from 'redux-query';
-import { connect } from 'react-redux';
-
-class Dashboard extends Component {
-    ...
-}
-
-const DashboardContainer = connectRequest((props) => ({
-    url: `/api/dashboard/${props.dashboardId}`,
-    update: {
-        chartsById: (prevCharts, dashboardCharts) => ({
-            ...prevCharts,
-            ...dashboardCharts,
-        }),
-        dashboardsById: (prevDashboards, dashboards) => ({
-            ...prevDashboards,
-            ...dashboards,
-        }),
-    },
-}))(Dashboard);
-
-const mapStateToProps = (state, props) => {
-    return {
-        dashboard: getDashboard(state, props),
-    };
-};
-
-export default connect(mapStateToProps)(DashboardContainer);
+```ts
+// TODO
 ```
 
 `connectRequest` passes an extra prop to the child component: `forceRequest`. Calling this function will cause the request(s) to be made again. This may be useful for polling or creating an interface to trigger refreshes.
