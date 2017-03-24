@@ -1,4 +1,3 @@
-import { NgrxQueryConfig } from './ngrxQueryConfig';
 import { OpaqueToken } from '@angular/core';
 export declare const statusCodes: {
     GATEWAY_TIMEOUT: number;
@@ -10,4 +9,9 @@ export declare const statusCodes: {
 export declare const NGRX_QUERY_CONFIG: OpaqueToken;
 export declare const defaultEntitiesSelector: (state: any) => any;
 export declare const defaultQueriesSelector: (state: any) => any;
-export declare const defaultConfig: NgrxQueryConfig;
+export declare const defaultBackoffConfig: {
+    maxAttempts: number;
+    maxDuration: number;
+    minDuration: number;
+};
+export declare const defaultRetryableStatusCodes: number[];
