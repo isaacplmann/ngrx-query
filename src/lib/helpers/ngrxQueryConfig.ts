@@ -7,6 +7,6 @@ export interface BackoffConfig {
 export interface NgrxQueryConfig {
   queriesSelector?: Selector;
   entitiesSelector?: Selector;
-  backoff: BackoffConfig;
-  retryableStatusCodes: number[];
+  backoff?: BackoffConfig;
+  retryableStatusCodes?: number[];
 };

@@ -1,6 +1,7 @@
+import { ConnectEntityService } from './services/connectEntity.service';
 import { NgrxQueryConfig } from './helpers/ngrxQueryConfig';
 import { ConnectRequestDirective } from './directives/connect.directive';
-import { defaultConfig, NGRX_QUERY_CONFIG } from './helpers/config';
+import { NGRX_QUERY_CONFIG } from './helpers/config';
 import { ConnectService } from './services/connect.service';
 import { NgrxQueryEffects } from './services/effects.service';
 import { ModuleWithProviders, NgModule } from '@angular/core';
@@ -16,11 +17,6 @@ import { EffectsModule } from '@ngrx/effects';
   imports: [
     EffectsModule.run(NgrxQueryEffects),
   ],
-  providers: [
-    { provide: NGRX_QUERY_CONFIG, useValue: defaultConfig},
-    NgrxQueryEffects,
-    ConnectService,
-  ],
 })
 export class NgrxQueryModule {
 
@@ -28,7 +24,11 @@ export class NgrxQueryModule {
   static forRoot(config: NgrxQueryConfig): ModuleWithProviders {
     return {
       ngModule: NgrxQueryModule,
-      providers: [{ provide: NGRX_QUERY_CONFIG, useValue: config }],
+      providers: [
+        { provide: NGRX_QUERY_CONFIG, useValue: config },
+        ConnectService,
+        ConnectEntityService,
+      ],
     };
   }
 }

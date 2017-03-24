@@ -1,12 +1,16 @@
 <header>
-  <h1 class="title">Test</h1>
+  <h1 class="title">Ngrx Query</h1>
 </header>
 <main>
-  <label for="isShown">Show Connected Element?</label> <input id="isShown" type="checkbox" [(ngModel)]="isShown">
-  <nqConnect *ngIf="isShown" [config]="config" (response)="data = $event" #connect="nqConnect">
-    {{ data?.chartsById?.test }}
-    <a href (click)="connect.forceRequest(); $event.preventDefault()">Force Refresh</a>
-  </nqConnect>
+  <h3>Server Status</h3>
+  <label><input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.ON">On</label><br>
+  <label><input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.BUSY">Busy</label><br>
+  <label><input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.ERROR">Error</label><br>
+
+  <h3>Connected Element/Component</h3>
+  <label for="isShown">Show List?</label> <input id="isShown" type="checkbox" [(ngModel)]="isShown">
+  <nq-ranger-list *ngIf="isShown" [nqConnect]="config" #list (response)="list.rangers = $event;" #connect="nqConnect" (refresh)="connect.forceRequest()">
+  </nq-ranger-list>
 </main>
 <footer>
   <a href="https://github.com/isaacplmann/ngrx-query">Ngrx Query</a>

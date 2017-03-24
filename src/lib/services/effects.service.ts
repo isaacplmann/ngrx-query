@@ -1,5 +1,6 @@
+import { Response, ResponseOptions } from '@angular/http';
 import { NgrxQueryConfig } from '../helpers/ngrxQueryConfig';
-import { defaultEntitiesSelector, defaultQueriesSelector } from './../helpers/config';
+import { defaultEntitiesSelector, defaultQueriesSelector, defaultBackoffConfig, defaultRetryableStatusCodes } from './../helpers/config';
 import { invariant } from '../helpers/invariant';
 import * as ngrxQueryActionTypes from '../helpers/actionTypes';
 import { NGRX_QUERY_CONFIG } from '../helpers/config';
@@ -8,10 +9,10 @@ import { Inject, Injectable } from '@angular/core';
 import { Http, Request } from '@angular/http';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import * as actions from '../redux-query/actions';
-import * as actionTypes from '../redux-query/action-types';
-import * as httpMethods from '../redux-query/http-methods';
-import { reconcileQueryKey } from '../redux-query/query-key';
+import * as actions from 'redux-query/dist/commonjs/actions';
+import * as actionTypes from 'redux-query/dist/commonjs/constants/action-types';
+import * as httpMethods from 'redux-query/dist/commonjs/constants/http-methods';
+import { reconcileQueryKey } from 'redux-query/dist/commonjs/lib/query-key';
 import { Observable } from 'rxjs/Observable';
 
 export function identity(x: any, y?: any): any {
@@ -65,14 +66,13 @@ export class NgrxQueryEffects {
       const queryKey = reconcileQueryKey(action);
 
       const state = getLatest(this.store);
-      const queries = this.config.queriesSelector
-        ? this.config.queriesSelector(state)
-        : defaultQueriesSelector(state);
+      const queries = this.config && this.config.queriesSelector && this.config.queriesSelector(state)
+        || defaultQueriesSelector(state);
 
       const queriesState = queries[queryKey];
       const { isPending, status } = queriesState || <any>{};
       const hasSucceeded = status >= 200 && status < 300;
-      const attemptRequest = force || !queriesState || (retry && !isPending && !hasSucceeded);
+      const attemptRequest = force || !queriesState || (retry !== false && !isPending && !hasSucceeded);
       return { attemptRequest, action };
     })
     .filter(({ attemptRequest }) => attemptRequest)
@@ -90,24 +90,29 @@ export class NgrxQueryEffects {
       const start = new Date();
       const { method = httpMethods.GET } = options;
 
-      const request = new Request({
+      const request = {
         url,
         method,
         body,
         headers: options.headers,
         withCredentials: options.credentials === 'include',
-      });
+      };
 
       return Observable.of({})
         .mergeMap(() => {
           this.store.dispatch(actions.requestStart(url, body, request, meta, queryKey));
-          return this.http.request(url, request);
+          return this.http.request(url, request)
+            .map(response => {
+              if (!response.ok) {
+                throw response;
+              }
+              return response;
+            });
         })
         .map(response => {
           const callbackState = getLatest(this.store);
-          const entities = this.config.entitiesSelector
-            ? this.config.entitiesSelector(callbackState)
-            : defaultEntitiesSelector(callbackState);
+          const entities = this.config && this.config.entitiesSelector && this.config.entitiesSelector(callbackState)
+            || defaultEntitiesSelector(callbackState);
           const transformed = transform(response.json(), response.text());
           const newEntities = updateEntities(update, entities, transformed);
           this.store.dispatch(actions.requestSuccess(url, body, response.status, newEntities, meta, queryKey));
@@ -124,14 +129,16 @@ export class NgrxQueryEffects {
           };
         })
         .retryWhen(attempts => {
-          return Observable.range(1, this.config.backoff.maxAttempts + 1)
+          const backoff = this.config && this.config.backoff || defaultBackoffConfig;
+          const retryableStatusCodes = this.config && this.config.retryableStatusCodes || defaultRetryableStatusCodes;
+          return Observable.range(1, backoff.maxAttempts + 1)
             .zip(attempts, (i, response) => ({ response, i }))
             .flatMap(({ response, i }) => {
-              if (i < this.config.backoff.maxAttempts && this.config.retryableStatusCodes.indexOf(response.status) >= 0) {
+              if (i < backoff.maxAttempts && retryableStatusCodes.indexOf(response.status) >= 0) {
                 // Delay retry by min duration the first attempt, up to max duration on the (maxAttempts)th attempt
                 return Observable.timer(
-                  this.config.backoff.minDuration +
-                  (i - 1) * (this.config.backoff.maxDuration - this.config.backoff.minDuration) / this.config.backoff.maxAttempts,
+                  backoff.minDuration +
+                  (i - 1) * (backoff.maxDuration - backoff.minDuration) / backoff.maxAttempts,
                 );
               } else {
                 // Tried maxAttempts, now fail
@@ -168,9 +175,8 @@ export class NgrxQueryEffects {
       invariant(!!url, 'Missing required `url` field in action handler');
 
       const state = getLatest(this.store);
-      const entities = this.config.entitiesSelector
-        ? this.config.entitiesSelector(state)
-        : defaultEntitiesSelector(state);
+      const entities = this.config && this.config.entitiesSelector && this.config.entitiesSelector(state)
+        || defaultEntitiesSelector(state);
       let optimisticEntities;
       if (optimisticUpdate) {
         optimisticEntities = optimisticUpdateEntities(optimisticUpdate, entities);
@@ -179,13 +185,13 @@ export class NgrxQueryEffects {
       const queryKey = reconcileQueryKey(action);
       // const start = new Date();
       const { method = httpMethods.POST } = options;
-      const request = new Request({
+      const request = {
         url,
         method,
         body,
         headers: options.headers,
         withCredentials: options.credentials === 'include',
-      });
+      };
 
       // Note: only the entities that are included in `optimisticUpdate` will be passed along in the
       // `mutateStart` action as `optimisticEntities`
@@ -193,6 +199,9 @@ export class NgrxQueryEffects {
 
       return this.http.request(url, request)
         .map(response => {
+          if (!response.ok) {
+            throw response;
+          }
           const resStatus = (response && response.status) || 0;
           const resBody = (response && response.json()) || undefined;
           const resText = (response && response.text()) || undefined;

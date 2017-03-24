@@ -1,6 +1,6 @@
 {
   "name": "ngrx-query",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
     "url": "git://github.com/isaacplmann/ngrx-query.git"
@@ -26,8 +26,10 @@
   },
   "private": false,
   "peerDependencies": {
-    "@angular/common": "^2.4.10",
-    "@angular/core": "^2.4.10"
+    "@angular/core": "^2.4.10",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^2.0.1",
+    "@ngrx/store": "^2.2.1"
   },
   "devDependencies": {
     "@angular/cli": "1.0.0-rc.2",
@@ -66,5 +68,8 @@
     "tslint": "~4.5.0",
     "typescript": "~2.2.1",
     "zone.js": "^0.8.4"
+  },
+  "dependencies": {
+    "redux-query": "^1.3.0"
   }
 }

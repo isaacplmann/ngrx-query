@@ -4,12 +4,11 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Directive({
   exportAs: 'nqConnect',
-  selector: 'nqConnect, [nqConnect]',
+  selector: '[nqConnect]',
 })
 export class ConnectRequestDirective implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
   @Input('nqConnect')
-  @Input()
   config: any = <ConnectRequestParams>undefined;
   @Output() response: EventEmitter<any> = new EventEmitter();
 
@@ -18,19 +17,19 @@ export class ConnectRequestDirective implements OnInit, OnDestroy {
   constructor(private connectService: ConnectService) {}
 
   ngOnInit(): void {
-    console.log('on init');
     this.subscribe(this.config);
   }
 
   ngOnDestroy(): void {
-    console.log('on destroy');
     this.unsubscribe();
   }
 
   subscribe(config: ConnectRequestParams): void {
-    // this.unsubscribe();
+    this.unsubscribe();
     this.subscription = this.connectService.requestAsync(config).subscribe(response => {
-      this.response.emit(response);
+      if (this.response) {
+        this.response.emit(response);
+      }
     });
   }
 

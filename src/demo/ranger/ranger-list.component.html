@@ -1,0 +1,29 @@
+<button (click)="refresh.emit({})">Refresh</button>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
+  <tbody *ngFor="let ranger of rangers">
+    <tr>
+      <td>{{ranger.name}}</td>
+      <td>
+        <button (click)="showRangers[ranger.id] = !showRangers[ranger.id]">{{ showRangers[ranger.id] ? 'Hide' : 'Show' }} Details</button>
+        <button (click)="edit(ranger)">Edit</button>
+        <button (click)="delete(ranger.id)">Delete</button>
+      </td>
+    </tr>
+    <tr *ngIf="showRangers[ranger.id]">
+      <td colspan="2">
+        <nq-ranger-detail [nqConnect]="getDetailsQuery(ranger.id)" #detail (response)="detail.ranger = $event;" #connect="nqConnect" (refresh)="connect.forceRequest()"></nq-ranger-detail>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Add person</h3>
+<label for="name">Name</label><br>
+<input type="text" id="name" [(ngModel)]="newRanger.name" placeholder="i.e. Tommy"><br>
+<label for="color">Color</label><br>
+<input type="text" [(ngModel)]="newRanger.color" placeholder="i.e. green"><br>
+<button (click)="create(newRanger)">Add</button>

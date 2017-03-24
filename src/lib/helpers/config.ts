@@ -13,18 +13,15 @@ export const NGRX_QUERY_CONFIG = new OpaqueToken('NGRX_QUERY_CONFIG');
 
 export const defaultEntitiesSelector = state => state.entities;
 export const defaultQueriesSelector = state => state.queries;
-
-export const defaultConfig: NgrxQueryConfig = {
-  backoff: {
-    maxAttempts: 5,
-    maxDuration: 5000,
-    minDuration: 300,
-  },
-  retryableStatusCodes: [
-    statusCodes.UNKNOWN, // normally means a failed connection
-    statusCodes.REQUEST_TIMEOUT,
-    statusCodes.TOO_MANY_REQUESTS, // hopefully backoff stops this getting worse
-    statusCodes.SERVICE_UNAVAILABLE,
-    statusCodes.GATEWAY_TIMEOUT,
-  ],
+export const defaultBackoffConfig = {
+  maxAttempts: 5,
+  maxDuration: 5000,
+  minDuration: 300,
 };
+export const defaultRetryableStatusCodes = [
+  statusCodes.UNKNOWN, // normally means a failed connection
+  statusCodes.REQUEST_TIMEOUT,
+  statusCodes.TOO_MANY_REQUESTS, // hopefully backoff stops this getting worse
+  statusCodes.SERVICE_UNAVAILABLE,
+  statusCodes.GATEWAY_TIMEOUT,
+];

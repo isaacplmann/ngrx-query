@@ -1,5 +1,5 @@
 import * as ngrxQueryActionTypes from './actionTypes';
-import * as actions from '../redux-query/actions';
+import * as actions from 'redux-query/dist/commonjs/actions';
 
 export type TransformFunction = (response: any) => { [id: string]: any};
 export type UpdateFunction = (prevValue: any, value: any) => any;

@@ -1,4 +1,5 @@
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/retryWhen';
@@ -8,13 +9,15 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/zip';
+import 'rxjs/add/observable/throw';
 
 export { NgrxQueryModule } from './ngrx-query';
 export { NgrxQueryEffects } from './services/effects.service';
-export { default as entitiesReducer } from './redux-query/reducers/entities';
-export { default as queriesReducer } from './redux-query/reducers/queries';
-export * from './redux-query/selectors';
+export { default as entitiesReducer } from 'redux-query/dist/commonjs/reducers/entities';
+export { default as queriesReducer } from 'redux-query/dist/commonjs/reducers/queries';
+export * from 'redux-query/dist/commonjs/selectors/query';
 export { ConnectService, ConnectRequestParams, ConnectMutateParams } from './services/connect.service';
+export { ConnectEntityService } from './services/connectEntity.service';
 export { ConnectRequestDirective } from './directives/connect.directive';
 export { NGRX_QUERY_CONFIG } from './helpers/config';
 export { NgrxQueryConfig } from './helpers/ngrxQueryConfig';

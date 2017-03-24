@@ -1,4 +1,4 @@
-import { withoutPath } from './../redux-query/reducers/entities';
+import { withoutPath } from 'redux-query/dist/commonjs/reducers/entities';
 import { ConnectService } from './connect.service';
 import { NgrxQueryConfig, Selector } from '../helpers/ngrxQueryConfig';
 import { mutateAsync, MutateParams, requestAsync, RequestParams } from '../helpers/actions';
@@ -7,13 +7,17 @@ import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-export function objectsByIdToArray(obj: any): any[] {
-  throw new Error('unimplemented');
-  // return [];
+export function objectsByIdToArray(obj: object): any[] {
+  if (!obj) {
+    return [];
+  }
+  return Object.keys(obj).map(key => obj[key]);
 };
-export function arrayToObjectsById(array: any[], keyValue: (any) => string) {
-  throw new Error('unimplemented');
-  // return {};
+export function arrayToObjectsById(array: any[], keyOf: (any) => string) {
+  return array.reduce((objectsById, item) => {
+    objectsById[keyOf(item)] = item;
+    return objectsById;
+  }, {});
 }
 
 export interface EntityConfig<E> {
@@ -54,9 +58,9 @@ export class ConnectEntityService<E> {
       url: this.config.endpoints.list,
     });
   }
-  get(id: number): Observable<E> {
+  get(id: number | string): Observable<E> {
     return this.connectService.requestAsync({
-      selector: s => s.entities[this.config.entityTypeName][id],
+      selector: s => s.entities[this.config.entityTypeName] && s.entities[this.config.entityTypeName][id],
       transform: (response: E) => ({ [this.config.entityTypeName]: { [id]: response } }),
       update: {
         [this.config.entityTypeName]: (prevEntities, entities) => ({
@@ -103,10 +107,10 @@ export class ConnectEntityService<E> {
           ...entities,
         }),
       },
-      url: this.config.endpoints.create,
+      url: this.config.endpoints.update,
     });
   }
-  delete(id: number): Observable<E> {
+  delete(id: number | string): Observable<E> {
     return this.connectService.mutateAsync({
       selector: s => s.entities[this.config.entityTypeName][id],
       optimisticUpdate: {

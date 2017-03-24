@@ -1,3 +1,7 @@
+import { createGetRangerListQuery, rangerListSelector } from './ranger/queries';
+import { ConnectService } from './../lib/services/connect.service';
+import { MockServerService, Ranger, SERVER_STATE } from './mockServer';
+import { arrayToObjectsById, objectsByIdToArray } from '../lib/services/connectEntity.service';
 import { ConnectRequestParams } from '../lib';
 import { Component } from '@angular/core';
 
@@ -7,33 +11,10 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  dashboardId: number = 2;
-  isShown: boolean = false;
-  data: any;
+  config: ConnectRequestParams = Object.assign({}, createGetRangerListQuery(), { selector: rangerListSelector });
+  serverState = SERVER_STATE;
 
-  config: ConnectRequestParams = {
-    selector: s => s.queries,
-    transform: response => ({
-      chartsById: { test: response.test },
-      dashboardsById: { test: response.test },
-    }),
-    update: {
-      chartsById: (prevCharts, dashboardCharts) => ({
-        ...prevCharts,
-        ...dashboardCharts,
-      }),
-      dashboardsById: (prevDashboards, dashboards) => ({
-        ...prevDashboards,
-        ...dashboards,
-      }),
-    },
-    url: `/api/dashboard/${this.dashboardId}`,
-  };
-
-  onDataReceived(data: any): void {
-    this.data = data;
-    console.log(data);
-  }
+  constructor(private connectService: ConnectService, private mockServer: MockServerService) {}
 
   log(message: any): void {
     console.log(message);

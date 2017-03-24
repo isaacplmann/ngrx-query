@@ -27,6 +27,6 @@ export class ConnectService {
   }
 
   public select(selector: Selector): Observable<any> {
-    return this.store.select(selector || this.config.entitiesSelector || defaultEntitiesSelector);
+    return this.store.select(selector || this.config && this.config.entitiesSelector || defaultEntitiesSelector);
   }
 }
