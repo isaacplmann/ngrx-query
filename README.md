@@ -175,7 +175,7 @@ Use the `nqConnect` attribute directive to declare network dependencies for an A
 
 ### `mutateAsync`
 
-Dispatch `mutateAsync` Redux actions to trigger mutations. `mutateAsync` takes a mutation query config as its only argument. Example usage with a [react-redux](https://github.com/reactjs/react-redux)-connected component:
+Dispatch `mutateAsync` Redux actions to trigger mutations. `mutateAsync` takes a mutation query config as its only argument. Example usage with an Angular component:
 
 ```ts
 // TODO
