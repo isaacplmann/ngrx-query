@@ -21,7 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
 export class NgrxQueryModule {
 
   /* optional: in case you need users to override your providers */
-  static forRoot(config: NgrxQueryConfig): ModuleWithProviders {
+  static forRoot(config?: NgrxQueryConfig): ModuleWithProviders {
     return {
       ngModule: NgrxQueryModule,
       providers: [
