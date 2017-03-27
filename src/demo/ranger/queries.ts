@@ -1,10 +1,9 @@
 import { Ranger } from '../mockServer';
 import { MutateParams } from './../../lib/helpers/actions';
-import { RequestParams } from 'gh-pages/.cache/lib';
 import * as url from 'url';
 import { arrayToObjectsById, objectsByIdToArray } from '../../lib/services/connectEntity.service';
 import { state } from '@angular/core';
-import { mutateAsync } from '../../lib';
+import { mutateAsync, RequestParams } from '../../lib';
 
 export function createGetRangerQuery(id): RequestParams {
   return {

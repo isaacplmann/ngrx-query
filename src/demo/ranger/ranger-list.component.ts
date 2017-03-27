@@ -1,4 +1,3 @@
-import { ConnectRequestParams } from 'gh-pages/.cache/lib';
 import { Ranger } from '../mockServer';
 import { Observable } from 'rxjs/Observable';
 import {
@@ -8,7 +7,7 @@ import {
   createUpdateRangerQuery,
   rangerByIdSelector
 } from './queries';
-import { ConnectService } from '../../lib';
+import { ConnectService, ConnectRequestParams } from '../../lib';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({

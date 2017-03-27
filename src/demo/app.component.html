@@ -7,6 +7,8 @@
   <label><input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.BUSY">Busy</label><br>
   <label><input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.ERROR">Error</label><br>
 
+  <p>Open the console to see the fake server calls (using MockBackend).</p>
+
   <h3>Connected Element/Component</h3>
   <label for="isShown">Show List?</label> <input id="isShown" type="checkbox" [(ngModel)]="isShown">
   <nq-ranger-list *ngIf="isShown" [nqConnect]="config" #list (response)="list.rangers = $event;" #connect="nqConnect" (refresh)="connect.forceRequest()">
