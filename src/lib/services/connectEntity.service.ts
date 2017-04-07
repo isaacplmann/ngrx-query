@@ -99,6 +99,9 @@ export class ConnectEntityService<E> {
           [this.config.idSelector(entity)]: entity,
         }),
       },
+      options: {
+        method: 'PUT',
+      },
       selector: s => s.entities[this.config.entityTypeName][this.config.idSelector(entity)],
       transform: (response: E) => ({ [this.config.entityTypeName]: { [this.config.idSelector(response)]: response } }),
       update: {
@@ -115,6 +118,9 @@ export class ConnectEntityService<E> {
       selector: s => s.entities[this.config.entityTypeName][id],
       optimisticUpdate: {
         [this.config.entityTypeName]: prevEntities => withoutPath(prevEntities, [id]),
+      },
+      options: {
+        method: 'DELETE',
       },
       update: {
         [this.config.entityTypeName]: prevEntities => withoutPath(prevEntities, [id]),
