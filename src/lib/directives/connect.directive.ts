@@ -1,3 +1,4 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { Optional } from '@angular/core';
 import { HostBinding } from '@angular/core';
 import { ConnectRequestParams, ConnectService } from '../services/connect.service';
@@ -17,7 +18,11 @@ export class ConnectRequestDirective implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private connectService: ConnectService, @Optional() public host: NqConnectedComponent) {}
+  constructor(
+    private connectService: ConnectService,
+    public changeDetector: ChangeDetectorRef,
+    @Optional() public host: NqConnectedComponent,
+  ) {}
 
   ngOnInit(): void {
     this.subscribe(this.config);
@@ -35,7 +40,12 @@ export class ConnectRequestDirective implements OnInit, OnDestroy {
     this.subscription = this.connectService.requestAsync(config).subscribe(response => {
       if (this.response) {
         if (this.host) {
-          this.host.nqData = response;
+          setTimeout(() => {
+            this.host.nqData = response;
+            if (this.host.changeDetector) {
+              this.host.changeDetector.detectChanges();
+            }
+          });
         }
         this.response.emit(response);
       }

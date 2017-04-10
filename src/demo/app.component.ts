@@ -3,9 +3,10 @@ import { ConnectService } from './../lib/services/connect.service';
 import { MockServerService, Ranger, SERVER_STATE } from './mockServer';
 import { arrayToObjectsById, objectsByIdToArray } from '../lib/services/connectEntity.service';
 import { ConnectRequestParams } from '../lib';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'nq-demo',
   styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html',

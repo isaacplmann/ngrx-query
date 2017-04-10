@@ -1,6 +1,7 @@
-import { EventEmitter, forwardRef, Provider } from '@angular/core';
+import { EventEmitter, forwardRef, Provider, ChangeDetectorRef } from '@angular/core';
 
 export abstract class NqConnectedComponent {
+  changeDetector?: ChangeDetectorRef;
   nqData: any;
   nqRefresh: EventEmitter<any>;
 }

@@ -1,3 +1,4 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Ranger } from '../mockServer';
 import { Observable } from 'rxjs/Observable';
 import {
@@ -11,6 +12,7 @@ import { ConnectService, ConnectRequestParams, NqConnectedComponent, provideNqCo
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideNqConnectedComponent(RangerListComponent)],
   selector: 'nq-ranger-list',
   templateUrl: 'ranger-list.component.html'
@@ -22,7 +24,7 @@ export class RangerListComponent implements NqConnectedComponent {
   showRangers: { [id: number]: boolean} = {};
   newRanger: Ranger = {};
 
-  constructor(private connectService: ConnectService) {}
+  constructor(private connectService: ConnectService, public changeDetector: ChangeDetectorRef) {}
 
   getDetailsQuery(id: number): ConnectRequestParams {
     return Object.assign({}, createGetRangerQuery(id), { selector: rangerByIdSelector(id) });
