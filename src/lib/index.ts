@@ -19,6 +19,7 @@ export * from 'redux-query/dist/commonjs/selectors/query';
 export { ConnectService, ConnectRequestParams, ConnectMutateParams } from './services/connect.service';
 export { ConnectEntityService } from './services/connectEntity.service';
 export { ConnectRequestDirective } from './directives/connect.directive';
+export { NqConnectedComponent, provideNqConnectedComponent } from './directives/connected.component';
 export { NGRX_QUERY_CONFIG } from './helpers/config';
 export { NgrxQueryConfig } from './helpers/ngrxQueryConfig';
 export { RequestParams, MutateParams, requestAsync, mutateAsync } from './helpers/actions';

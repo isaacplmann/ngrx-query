@@ -7,16 +7,17 @@ import {
   createUpdateRangerQuery,
   rangerByIdSelector
 } from './queries';
-import { ConnectService, ConnectRequestParams } from '../../lib';
+import { ConnectService, ConnectRequestParams, NqConnectedComponent, provideNqConnectedComponent } from '../../lib';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
+  providers: [provideNqConnectedComponent(RangerListComponent)],
   selector: 'nq-ranger-list',
   templateUrl: 'ranger-list.component.html'
 })
-export class RangerListComponent {
-  @Input() rangers: Ranger[];
-  @Output() refresh: EventEmitter<any> = new EventEmitter();
+export class RangerListComponent implements NqConnectedComponent {
+  @Input() nqData: Ranger[];
+  @Output() nqRefresh: EventEmitter<any> = new EventEmitter();
 
   showRangers: { [id: number]: boolean} = {};
   newRanger: Ranger = {};

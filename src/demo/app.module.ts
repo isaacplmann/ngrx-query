@@ -1,3 +1,4 @@
+import { RangerListDataDirective } from './ranger/ranger-list.data.directive';
 import { RangerDetailComponent } from './ranger/ranger-detail.component';
 import { RangerListComponent } from './ranger/ranger-list.component';
 import { entitiesReducer, NgrxQueryModule, queriesReducer } from '../lib';
@@ -27,6 +28,7 @@ export function queriesSelector(state): any {
     AppComponent,
     RangerListComponent,
     RangerDetailComponent,
+    RangerListDataDirective,
   ],
   imports: [
     BrowserModule,

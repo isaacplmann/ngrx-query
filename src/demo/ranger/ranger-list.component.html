@@ -1,10 +1,10 @@
-<button (click)="refresh.emit({})">Refresh</button>
+<button (click)="nqRefresh.emit({})">Refresh</button>
 <table>
   <tr>
     <th>Name</th>
     <th>Actions</th>
   </tr>
-  <tbody *ngFor="let ranger of rangers">
+  <tbody *ngFor="let ranger of nqData">
     <tr>
       <td>{{ranger.name}}</td>
       <td>
@@ -15,7 +15,7 @@
     </tr>
     <tr *ngIf="showRangers[ranger.id]">
       <td colspan="2">
-        <nq-ranger-detail [nqConnect]="getDetailsQuery(ranger.id)" #detail (response)="detail.ranger = $event;" #connect="nqConnect" (refresh)="connect.forceRequest()"></nq-ranger-detail>
+        <nq-ranger-detail [nqConnect]="getDetailsQuery(ranger.id)"></nq-ranger-detail>
       </td>
     </tr>
   </tbody>

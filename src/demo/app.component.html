@@ -11,8 +11,7 @@
 
   <h3>Connected Element/Component</h3>
   <label for="isShown">Show List?</label> <input id="isShown" type="checkbox" [(ngModel)]="isShown">
-  <nq-ranger-list *ngIf="isShown" [nqConnect]="config" #list (response)="list.rangers = $event;" #connect="nqConnect" (refresh)="connect.forceRequest()">
-  </nq-ranger-list>
+  <nq-ranger-list *ngIf="isShown" rangerListData></nq-ranger-list>
 </main>
 <footer>
   <a href="https://github.com/isaacplmann/ngrx-query">Ngrx Query</a>

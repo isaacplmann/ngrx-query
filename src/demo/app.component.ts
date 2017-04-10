@@ -11,7 +11,6 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  config: ConnectRequestParams = Object.assign({}, createGetRangerListQuery(), { selector: rangerListSelector });
   serverState = SERVER_STATE;
 
   constructor(private connectService: ConnectService, private mockServer: MockServerService) {}
