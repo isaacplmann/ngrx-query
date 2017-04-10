@@ -68,6 +68,7 @@ var AppComponent = (function () {
 }());
 AppComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_5" /* Component */])({
+        changeDetection: __WEBPACK_IMPORTED_MODULE_2__angular_core__["_6" /* ChangeDetectionStrategy */].OnPush,
         selector: 'nq-demo',
         styles: [__webpack_require__(202)],
         template: __webpack_require__(210),
@@ -205,7 +206,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var RangerDetailComponent = RangerDetailComponent_1 = (function () {
-    function RangerDetailComponent() {
+    function RangerDetailComponent(changeDetector) {
+        this.changeDetector = changeDetector;
         this.nqData = undefined;
         this.nqRefresh = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* EventEmitter */]();
     }
@@ -221,13 +223,15 @@ __decorate([
 ], RangerDetailComponent.prototype, "nqRefresh", void 0);
 RangerDetailComponent = RangerDetailComponent_1 = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_5" /* Component */])({
+        changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_6" /* ChangeDetectionStrategy */].OnPush,
         providers: [__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["provideNqConnectedComponent"])(RangerDetailComponent_1)],
         selector: 'nq-ranger-detail',
         template: __webpack_require__(211)
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* ChangeDetectorRef */]) === "function" && _b || Object])
 ], RangerDetailComponent);
 
-var RangerDetailComponent_1, _a;
+var RangerDetailComponent_1, _a, _b;
 //# sourceMappingURL=ranger-detail.component.js.map
 
 /***/ }),
@@ -236,9 +240,9 @@ var RangerDetailComponent_1, _a;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__queries__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__queries__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib__ = __webpack_require__(31);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RangerListComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -252,50 +256,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var RangerListComponent = RangerListComponent_1 = (function () {
-    function RangerListComponent(connectService) {
+    function RangerListComponent(connectService, changeDetector) {
         this.connectService = connectService;
-        this.nqRefresh = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["D" /* EventEmitter */]();
+        this.changeDetector = changeDetector;
+        this.nqRefresh = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */]();
         this.showRangers = {};
         this.newRanger = {};
     }
     RangerListComponent.prototype.getDetailsQuery = function (id) {
-        return Object.assign({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries__["c" /* createGetRangerQuery */])(id), { selector: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries__["d" /* rangerByIdSelector */])(id) });
+        return Object.assign({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__queries__["c" /* createGetRangerQuery */])(id), { selector: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__queries__["d" /* rangerByIdSelector */])(id) });
     };
     RangerListComponent.prototype.edit = function (ranger) {
         var updatedRanger = Object.assign({}, ranger, { name: ranger.name + ' Edited' });
-        var mutateQuery = Object.assign({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries__["e" /* createUpdateRangerQuery */])(updatedRanger), { selector: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries__["d" /* rangerByIdSelector */])(ranger.id) });
+        var mutateQuery = Object.assign({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__queries__["e" /* createUpdateRangerQuery */])(updatedRanger), { selector: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__queries__["d" /* rangerByIdSelector */])(ranger.id) });
         this.connectService.mutateAsync(mutateQuery);
     };
     RangerListComponent.prototype.create = function (ranger) {
-        var mutateQuery = Object.assign({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries__["f" /* createCreateRangerQuery */])(ranger));
+        var mutateQuery = Object.assign({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__queries__["f" /* createCreateRangerQuery */])(ranger));
         this.connectService.mutateAsync(mutateQuery);
         this.newRanger = {};
     };
     RangerListComponent.prototype.delete = function (id) {
-        var mutateQuery = Object.assign({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__queries__["g" /* createDeleteRangerQuery */])(id));
+        var mutateQuery = Object.assign({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__queries__["g" /* createDeleteRangerQuery */])(id));
         this.connectService.mutateAsync(mutateQuery);
     };
     return RangerListComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["M" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* Input */])(),
     __metadata("design:type", Array)
 ], RangerListComponent.prototype, "nqData", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_1" /* Output */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["D" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["D" /* EventEmitter */]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Output */])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */]) === "function" && _a || Object)
 ], RangerListComponent.prototype, "nqRefresh", void 0);
 RangerListComponent = RangerListComponent_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_5" /* Component */])({
-        providers: [__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__lib__["provideNqConnectedComponent"])(RangerListComponent_1)],
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+        changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* ChangeDetectionStrategy */].OnPush,
+        providers: [__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__lib__["provideNqConnectedComponent"])(RangerListComponent_1)],
         selector: 'nq-ranger-list',
         template: __webpack_require__(212)
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["ConnectService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["ConnectService"]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__lib__["ConnectService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__lib__["ConnectService"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */]) === "function" && _c || Object])
 ], RangerListComponent);
 
-var RangerListComponent_1, _a, _b;
+var RangerListComponent_1, _a, _b, _c;
 //# sourceMappingURL=ranger-list.component.js.map
 
 /***/ }),
@@ -304,9 +311,9 @@ var RangerListComponent_1, _a, _b;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_services_connect_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_services_connect_service__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__queries__ = __webpack_require__(87);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RangerListDataDirective; });
 var __extends = (this && this.__extends) || (function () {
@@ -335,24 +342,26 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
+
 var RangerListDataDirective = (function (_super) {
     __extends(RangerListDataDirective, _super);
-    function RangerListDataDirective(connect, host) {
-        var _this = _super.call(this, connect, host) || this;
+    function RangerListDataDirective(connect, changeDetector, host) {
+        var _this = _super.call(this, connect, changeDetector, host) || this;
         _this.connect = connect;
+        _this.changeDetector = changeDetector;
         _this.host = host;
         _this.config = Object.assign({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__queries__["a" /* createGetRangerListQuery */])(), { selector: __WEBPACK_IMPORTED_MODULE_3__queries__["b" /* rangerListSelector */] });
         return _this;
     }
     return RangerListDataDirective;
-}(__WEBPACK_IMPORTED_MODULE_0__lib__["ConnectRequestDirective"]));
+}(__WEBPACK_IMPORTED_MODULE_1__lib__["ConnectRequestDirective"]));
 RangerListDataDirective = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["H" /* Directive */])({ selector: '[rangerListData]' }),
-    __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* Optional */])()),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__lib_services_connect_service__["a" /* ConnectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib_services_connect_service__["a" /* ConnectService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__lib__["NqConnectedComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__lib__["NqConnectedComponent"]) === "function" && _b || Object])
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* Directive */])({ selector: '[rangerListData]' }),
+    __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Optional */])()),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__lib_services_connect_service__["a" /* ConnectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__lib_services_connect_service__["a" /* ConnectService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["NqConnectedComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["NqConnectedComponent"]) === "function" && _c || Object])
 ], RangerListDataDirective);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=ranger-list.data.directive.js.map
 
 /***/ }),
@@ -1184,9 +1193,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
+
 var ConnectRequestDirective = (function () {
-    function ConnectRequestDirective(connectService, host) {
+    function ConnectRequestDirective(connectService, changeDetector, host) {
         this.connectService = connectService;
+        this.changeDetector = changeDetector;
         this.host = host;
         // tslint:disable-next-line:no-input-rename
         this.config = undefined;
@@ -1208,7 +1219,12 @@ var ConnectRequestDirective = (function () {
         this.subscription = this.connectService.requestAsync(config).subscribe(function (response) {
             if (_this.response) {
                 if (_this.host) {
-                    _this.host.nqData = response;
+                    setTimeout(function () {
+                        _this.host.nqData = response;
+                        if (_this.host.changeDetector) {
+                            _this.host.changeDetector.detectChanges();
+                        }
+                    });
                 }
                 _this.response.emit(response);
             }
@@ -1237,11 +1253,11 @@ ConnectRequestDirective = __decorate([
         exportAs: 'nqConnect',
         selector: '[nqConnect]',
     }),
-    __param(1, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Optional */])()),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_connect_service__["a" /* ConnectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_connect_service__["a" /* ConnectService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__connected_component__["a" /* NqConnectedComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__connected_component__["a" /* NqConnectedComponent */]) === "function" && _c || Object])
+    __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Optional */])()),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_connect_service__["a" /* ConnectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_connect_service__["a" /* ConnectService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__connected_component__["a" /* NqConnectedComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__connected_component__["a" /* NqConnectedComponent */]) === "function" && _d || Object])
 ], ConnectRequestDirective);
 
-var _a, _b, _c;
+var _a, _b, _c, _d;
 //# sourceMappingURL=connect.directive.js.map
 
 /***/ }),
