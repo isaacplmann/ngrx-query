@@ -15,7 +15,7 @@ import * as httpMethods from 'redux-query/dist/commonjs/constants/http-methods';
 import { reconcileQueryKey } from 'redux-query/dist/commonjs/lib/query-key';
 import { Observable } from 'rxjs/Observable';
 
-export function identity(x: any, y?: any): any {
+export function identity(x: any, y?: any, z?: any): any {
   return x;
 }
 
@@ -113,7 +113,7 @@ export class NgrxQueryEffects {
           const callbackState = getLatest(this.store);
           const entities = this.config && this.config.entitiesSelector && this.config.entitiesSelector(callbackState)
             || defaultEntitiesSelector(callbackState);
-          const transformed = transform(response.json(), response.text());
+          const transformed = transform(response.json(), response.text(), response);
           const newEntities = updateEntities(update, entities, transformed);
           this.store.dispatch(actions.requestSuccess(url, body, response.status, newEntities, meta, queryKey));
           const end = new Date();
@@ -206,7 +206,7 @@ export class NgrxQueryEffects {
           const resBody = (response && response.json()) || undefined;
           const resText = (response && response.text()) || undefined;
 
-          const transformed = transform(resBody, resText);
+          const transformed = transform(resBody, resText, response);
           const newEntities = updateEntities(update, entities, transformed);
           return actions.mutateSuccess(url, body, resStatus, newEntities, queryKey);
         })
