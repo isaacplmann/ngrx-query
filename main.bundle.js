@@ -1376,7 +1376,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
-function identity(x, y) {
+function identity(x, y, z) {
     return x;
 }
 function optimisticUpdateEntities(optimisticUpdate, entities) {
@@ -1460,7 +1460,7 @@ var NgrxQueryEffects = (function () {
                 var callbackState = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__helpers_getLatest__["a" /* getLatest */])(_this.store);
                 var entities = _this.config && _this.config.entitiesSelector && _this.config.entitiesSelector(callbackState)
                     || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_config__["a" /* defaultEntitiesSelector */])(callbackState);
-                var transformed = transform(response.json(), response.text());
+                var transformed = transform(response.json(), response.text(), response);
                 var newEntities = updateEntities(update, entities, transformed);
                 _this.store.dispatch(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["requestSuccess"](url, body, response.status, newEntities, meta, queryKey));
                 var end = new Date();
@@ -1533,7 +1533,7 @@ var NgrxQueryEffects = (function () {
                 var resStatus = (response && response.status) || 0;
                 var resBody = (response && response.json()) || undefined;
                 var resText = (response && response.text()) || undefined;
-                var transformed = transform(resBody, resText);
+                var transformed = transform(resBody, resText, response);
                 var newEntities = updateEntities(update, entities, transformed);
                 return __WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateSuccess"](url, body, resStatus, newEntities, queryKey);
             })
