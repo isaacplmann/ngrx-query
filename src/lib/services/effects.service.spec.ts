@@ -1,7 +1,7 @@
-import { REQUEST_FAILURE } from './../redux-query/action-types';
+import { REQUEST_FAILURE } from 'redux-query/dist/commonjs/constants/action-types';
 import { REQUEST_ASYNC } from './../helpers/actionTypes';
 import { MockServerService, SERVER_STATE } from './../../demo/mockServer';
-import { NGRX_QUERY_CONFIG, defaultConfig } from './../helpers/config';
+import { NGRX_QUERY_CONFIG } from './../helpers/config';
 import { NgrxQueryModule } from './../ngrx-query';
 import { StoreModule } from '@ngrx/store';
 import { requestAsync } from './../helpers/actions';
@@ -14,7 +14,7 @@ import {Injectable, ReflectiveInjector} from '@angular/core';
 import {BaseRequestOptions, ConnectionBackend, Http, RequestOptions} from '@angular/http';
 import {Response, ResponseOptions} from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import * as actionTypes from '../redux-query/action-types';
+import * as actionTypes from 'redux-query/dist/commonjs/constants/action-types';
 
 export function httpFactory(backend, options): Http {
   return new Http(backend, options);
@@ -47,7 +47,7 @@ describe('NgrxQueryEffects', () => {
           useFactory: httpFactory,
         },
         NgrxQueryEffects,
-        { provide: NGRX_QUERY_CONFIG, useValue: defaultConfig },
+        { provide: NGRX_QUERY_CONFIG, useValue: {} },
         MockServerService,
       ]
     });
