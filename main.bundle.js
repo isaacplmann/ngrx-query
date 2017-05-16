@@ -1460,13 +1460,20 @@ var NgrxQueryEffects = (function () {
                 var callbackState = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__helpers_getLatest__["a" /* getLatest */])(_this.store);
                 var entities = _this.config && _this.config.entitiesSelector && _this.config.entitiesSelector(callbackState)
                     || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_config__["a" /* defaultEntitiesSelector */])(callbackState);
-                var transformed = transform(response.json(), response.text(), response);
+                var parsedResponse;
+                try {
+                    parsedResponse = response.json();
+                }
+                catch (ex) {
+                    parsedResponse = response.text();
+                }
+                var transformed = transform(parsedResponse, response.text(), response);
                 var newEntities = updateEntities(update, entities, transformed);
                 _this.store.dispatch(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["requestSuccess"](url, body, response.status, newEntities, meta, queryKey));
                 var end = new Date();
                 var duration = end.valueOf() - start.valueOf();
                 return {
-                    body: response.json(),
+                    body: parsedResponse,
                     duration: duration,
                     entities: newEntities,
                     status: response.status,
