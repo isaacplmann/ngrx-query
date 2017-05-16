@@ -113,13 +113,19 @@ export class NgrxQueryEffects {
           const callbackState = getLatest(this.store);
           const entities = this.config && this.config.entitiesSelector && this.config.entitiesSelector(callbackState)
             || defaultEntitiesSelector(callbackState);
-          const transformed = transform(response.json(), response.text(), response);
+          let parsedResponse: string;
+          try {
+            parsedResponse = response.json();
+          } catch (ex) {
+            parsedResponse = response.text();
+          }
+          const transformed = transform(parsedResponse, response.text(), response);
           const newEntities = updateEntities(update, entities, transformed);
           this.store.dispatch(actions.requestSuccess(url, body, response.status, newEntities, meta, queryKey));
           const end = new Date();
           const duration = end.valueOf() - start.valueOf();
           return {
-            body: response.json(),
+            body: parsedResponse,
             duration,
             entities: newEntities,
             status: response.status,
