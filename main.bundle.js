@@ -67,11 +67,11 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_5" /* Component */])({
-        changeDetection: __WEBPACK_IMPORTED_MODULE_2__angular_core__["_6" /* ChangeDetectionStrategy */].OnPush,
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_6" /* Component */])({
+        changeDetection: __WEBPACK_IMPORTED_MODULE_2__angular_core__["_7" /* ChangeDetectionStrategy */].OnPush,
         selector: 'nq-demo',
         styles: [__webpack_require__(202)],
-        template: __webpack_require__(210),
+        template: __webpack_require__(209),
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__lib_services_connect_service__["a" /* ConnectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__lib_services_connect_service__["a" /* ConnectService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__mockServer__["a" /* MockServerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__mockServer__["a" /* MockServerService */]) === "function" && _b || Object])
 ], AppComponent);
@@ -209,26 +209,26 @@ var RangerDetailComponent = RangerDetailComponent_1 = (function () {
     function RangerDetailComponent(changeDetector) {
         this.changeDetector = changeDetector;
         this.nqData = undefined;
-        this.nqRefresh = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* EventEmitter */]();
+        this.nqRefresh = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* EventEmitter */]();
     }
     return RangerDetailComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["O" /* Input */])(),
     __metadata("design:type", Object)
 ], RangerDetailComponent.prototype, "nqData", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_1" /* Output */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["D" /* EventEmitter */]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_2" /* Output */])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* EventEmitter */]) === "function" && _a || Object)
 ], RangerDetailComponent.prototype, "nqRefresh", void 0);
 RangerDetailComponent = RangerDetailComponent_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_5" /* Component */])({
-        changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_6" /* ChangeDetectionStrategy */].OnPush,
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_6" /* Component */])({
+        changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["_7" /* ChangeDetectionStrategy */].OnPush,
         providers: [__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["provideNqConnectedComponent"])(RangerDetailComponent_1)],
         selector: 'nq-ranger-detail',
-        template: __webpack_require__(211)
+        template: __webpack_require__(210)
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["X" /* ChangeDetectorRef */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["Z" /* ChangeDetectorRef */]) === "function" && _b || Object])
 ], RangerDetailComponent);
 
 var RangerDetailComponent_1, _a, _b;
@@ -261,7 +261,7 @@ var RangerListComponent = RangerListComponent_1 = (function () {
     function RangerListComponent(connectService, changeDetector) {
         this.connectService = connectService;
         this.changeDetector = changeDetector;
-        this.nqRefresh = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */]();
+        this.nqRefresh = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]();
         this.showRangers = {};
         this.newRanger = {};
     }
@@ -285,21 +285,21 @@ var RangerListComponent = RangerListComponent_1 = (function () {
     return RangerListComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
     __metadata("design:type", Array)
 ], RangerListComponent.prototype, "nqData", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Output */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_2" /* Output */])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]) === "function" && _a || Object)
 ], RangerListComponent.prototype, "nqRefresh", void 0);
 RangerListComponent = RangerListComponent_1 = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
-        changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* ChangeDetectionStrategy */].OnPush,
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_6" /* Component */])({
+        changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_7" /* ChangeDetectionStrategy */].OnPush,
         providers: [__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__lib__["provideNqConnectedComponent"])(RangerListComponent_1)],
         selector: 'nq-ranger-list',
-        template: __webpack_require__(212)
+        template: __webpack_require__(211)
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__lib__["ConnectService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__lib__["ConnectService"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__lib__["ConnectService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__lib__["ConnectService"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* ChangeDetectorRef */]) === "function" && _c || Object])
 ], RangerListComponent);
 
 var RangerListComponent_1, _a, _b, _c;
@@ -356,9 +356,9 @@ var RangerListDataDirective = (function (_super) {
     return RangerListDataDirective;
 }(__WEBPACK_IMPORTED_MODULE_1__lib__["ConnectRequestDirective"]));
 RangerListDataDirective = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* Directive */])({ selector: '[rangerListData]' }),
-    __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Optional */])()),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__lib_services_connect_service__["a" /* ConnectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__lib_services_connect_service__["a" /* ConnectService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["NqConnectedComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["NqConnectedComponent"]) === "function" && _c || Object])
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */])({ selector: '[rangerListData]' }),
+    __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Optional */])()),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__lib_services_connect_service__["a" /* ConnectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__lib_services_connect_service__["a" /* ConnectService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* ChangeDetectorRef */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__lib__["NqConnectedComponent"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__lib__["NqConnectedComponent"]) === "function" && _c || Object])
 ], RangerListDataDirective);
 
 var _a, _b, _c;
@@ -552,21 +552,21 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 210:
+/***/ 209:
 /***/ (function(module, exports) {
 
 module.exports = "<header>\n  <h1 class=\"title\">Ngrx Query</h1>\n</header>\n<main>\n  <h3>Server Status</h3>\n  <label><input type=\"radio\" [(ngModel)]=\"mockServer.state\" name=\"serverState\" [value]=\"serverState.ON\">On</label><br>\n  <label><input type=\"radio\" [(ngModel)]=\"mockServer.state\" name=\"serverState\" [value]=\"serverState.BUSY\">Busy</label><br>\n  <label><input type=\"radio\" [(ngModel)]=\"mockServer.state\" name=\"serverState\" [value]=\"serverState.ERROR\">Error</label><br>\n\n  <p>Open the console to see the fake server calls (using MockBackend).</p>\n\n  <h3>Connected Element/Component</h3>\n  <label for=\"isShown\">Show List?</label> <input id=\"isShown\" type=\"checkbox\" [(ngModel)]=\"isShown\">\n  <nq-ranger-list *ngIf=\"isShown\" rangerListData></nq-ranger-list>\n</main>\n<footer>\n  <a href=\"https://github.com/isaacplmann/ngrx-query\">Ngrx Query</a>\n</footer>\n"
 
 /***/ }),
 
-/***/ 211:
+/***/ 210:
 /***/ (function(module, exports) {
 
 module.exports = "<strong>Favorite Color:</strong> {{nqData?.color}}\n<button (click)=\"nqRefresh.emit({})\">Refresh</button>\n"
 
 /***/ }),
 
-/***/ 212:
+/***/ 211:
 /***/ (function(module, exports) {
 
 module.exports = "<button (click)=\"nqRefresh.emit({})\">Refresh</button>\n<table>\n  <tr>\n    <th>Name</th>\n    <th>Actions</th>\n  </tr>\n  <tbody *ngFor=\"let ranger of nqData\">\n    <tr>\n      <td>{{ranger.name}}</td>\n      <td>\n        <button (click)=\"showRangers[ranger.id] = !showRangers[ranger.id]\">{{ showRangers[ranger.id] ? 'Hide' : 'Show' }} Details</button>\n        <button (click)=\"edit(ranger)\">Edit</button>\n        <button (click)=\"delete(ranger.id)\">Delete</button>\n      </td>\n    </tr>\n    <tr *ngIf=\"showRangers[ranger.id]\">\n      <td colspan=\"2\">\n        <nq-ranger-detail [nqConnect]=\"getDetailsQuery(ranger.id)\"></nq-ranger-detail>\n      </td>\n    </tr>\n  </tbody>\n</table>\n\n<h3>Add person</h3>\n<label for=\"name\">Name</label><br>\n<input type=\"text\" id=\"name\" [(ngModel)]=\"newRanger.name\" placeholder=\"i.e. Tommy\"><br>\n<label for=\"color\">Color</label><br>\n<input type=\"text\" [(ngModel)]=\"newRanger.color\" placeholder=\"i.e. green\"><br>\n<button (click)=\"create(newRanger)\">Add</button>\n"
@@ -592,7 +592,7 @@ var statusCodes = {
     TOO_MANY_REQUESTS: 429,
     UNKNOWN: 0,
 };
-var NGRX_QUERY_CONFIG = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["Y" /* OpaqueToken */]('NGRX_QUERY_CONFIG');
+var NGRX_QUERY_CONFIG = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* OpaqueToken */]('NGRX_QUERY_CONFIG');
 var defaultEntitiesSelector = function (state) { return state.entities; };
 var defaultQueriesSelector = function (state) { return state.queries; };
 var defaultBackoffConfig = {
@@ -611,7 +611,7 @@ var defaultRetryableStatusCodes = [
 
 /***/ }),
 
-/***/ 272:
+/***/ 271:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(122);
@@ -623,29 +623,29 @@ module.exports = __webpack_require__(122);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(225);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_do__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_do__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__ = __webpack_require__(218);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_retryWhen__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_retryWhen__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_retryWhen___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_retryWhen__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_range__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_range__ = __webpack_require__(219);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_range___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_range__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_timer__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_timer__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_timer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_timer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_mergeMap__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_mergeMap__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_mergeMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_take__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_take__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_take___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_take__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_zip__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_zip__ = __webpack_require__(229);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_zip___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_zip__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_observable_throw__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_observable_throw__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_observable_throw___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_add_observable_throw__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ngrx_query__ = __webpack_require__(148);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NgrxQueryModule", function() { return __WEBPACK_IMPORTED_MODULE_12__ngrx_query__["a"]; });
@@ -654,10 +654,10 @@ module.exports = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_redux_query_dist_commonjs_reducers_entities__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_redux_query_dist_commonjs_reducers_entities___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_redux_query_dist_commonjs_reducers_entities__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "entitiesReducer", function() { return __WEBPACK_IMPORTED_MODULE_14_redux_query_dist_commonjs_reducers_entities___default.a; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_redux_query_dist_commonjs_reducers_queries__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_redux_query_dist_commonjs_reducers_queries__ = __webpack_require__(213);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_redux_query_dist_commonjs_reducers_queries___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_redux_query_dist_commonjs_reducers_queries__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "queriesReducer", function() { return __WEBPACK_IMPORTED_MODULE_15_redux_query_dist_commonjs_reducers_queries___default.a; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_redux_query_dist_commonjs_selectors_query__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_redux_query_dist_commonjs_selectors_query__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_redux_query_dist_commonjs_selectors_query___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_redux_query_dist_commonjs_selectors_query__);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__services_connect_service__ = __webpack_require__(20);
@@ -1201,7 +1201,7 @@ var ConnectRequestDirective = (function () {
         this.host = host;
         // tslint:disable-next-line:no-input-rename
         this.config = undefined;
-        this.response = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */]();
+        this.response = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]();
     }
     ConnectRequestDirective.prototype.ngOnInit = function () {
         var _this = this;
@@ -1241,20 +1241,20 @@ var ConnectRequestDirective = (function () {
     return ConnectRequestDirective;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* Input */])('nqConnect'),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])('nqConnect'),
     __metadata("design:type", Object)
 ], ConnectRequestDirective.prototype, "config", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Output */])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */]) === "function" && _a || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_2" /* Output */])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]) === "function" && _a || Object)
 ], ConnectRequestDirective.prototype, "response", void 0);
 ConnectRequestDirective = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* Directive */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */])({
         exportAs: 'nqConnect',
         selector: '[nqConnect]',
     }),
-    __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Optional */])()),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_connect_service__["a" /* ConnectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_connect_service__["a" /* ConnectService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["X" /* ChangeDetectorRef */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__connected_component__["a" /* NqConnectedComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__connected_component__["a" /* NqConnectedComponent */]) === "function" && _d || Object])
+    __param(2, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Optional */])()),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_connect_service__["a" /* ConnectService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_connect_service__["a" /* ConnectService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* ChangeDetectorRef */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__connected_component__["a" /* NqConnectedComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__connected_component__["a" /* NqConnectedComponent */]) === "function" && _d || Object])
 ], ConnectRequestDirective);
 
 var _a, _b, _c, _d;
@@ -1277,7 +1277,7 @@ var NqConnectedComponent = (function () {
 }());
 
 function provideNqConnectedComponent(component, parentType) {
-    return { provide: parentType || NqConnectedComponent, useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_0" /* forwardRef */])(function () { return component; }) };
+    return { provide: parentType || NqConnectedComponent, useExisting: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* forwardRef */])(function () { return component; }) };
 }
 ;
 //# sourceMappingURL=connected.component.js.map
@@ -1338,7 +1338,7 @@ var mutateAsync = function (params) { return Object.assign({}, __WEBPACK_IMPORTE
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_redux_query_dist_commonjs_constants_action_types__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_redux_query_dist_commonjs_constants_action_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_redux_query_dist_commonjs_constants_action_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_redux_query_dist_commonjs_constants_http_methods__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_redux_query_dist_commonjs_constants_http_methods__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_redux_query_dist_commonjs_constants_http_methods___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_redux_query_dist_commonjs_constants_http_methods__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_redux_query_dist_commonjs_lib_query_key__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_redux_query_dist_commonjs_lib_query_key___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_redux_query_dist_commonjs_lib_query_key__);
@@ -1532,7 +1532,7 @@ var NgrxQueryEffects = (function () {
             };
             // Note: only the entities that are included in `optimisticUpdate` will be passed along in the
             // `mutateStart` action as `optimisticEntities`
-            _this.store.dispatch(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateStart"](url, body, meta, request, optimisticEntities, queryKey));
+            _this.store.dispatch(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateStart"](url, body, request, optimisticEntities, queryKey, meta));
             return _this.http.request(url, request)
                 .map(function (response) {
                 if (!response.ok) {
@@ -1543,9 +1543,9 @@ var NgrxQueryEffects = (function () {
                 var resText = (response && response.text()) || undefined;
                 var transformed = transform(resBody, resText, response);
                 var newEntities = updateEntities(update, entities, transformed);
-                return __WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateSuccess"](url, body, meta, resStatus, newEntities, queryKey);
+                return __WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateSuccess"](url, body, resStatus, newEntities, queryKey, resBody, resText, response.headers, meta);
             })
-                .catch(function (errResponse) { return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateFailure"](url, body, meta, errResponse.status, entities, queryKey)); });
+                .catch(function (errResponse) { return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateFailure"](url, body, errResponse.status, entities, queryKey, errResponse.text(), errResponse.text(), errResponse.headers, meta)); });
         });
     }
     return NgrxQueryEffects;
@@ -1569,5 +1569,5 @@ var _a, _b, _c, _d, _e, _f;
 
 /***/ })
 
-},[272]);
+},[271]);
 //# sourceMappingURL=main.bundle.js.map
