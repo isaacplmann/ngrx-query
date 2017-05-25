@@ -1476,6 +1476,7 @@ var NgrxQueryEffects = (function () {
                     body: parsedResponse,
                     duration: duration,
                     entities: newEntities,
+                    meta: meta,
                     status: response.status,
                     text: response.text,
                     transformed: transformed,
@@ -1510,7 +1511,7 @@ var NgrxQueryEffects = (function () {
         this.mutateAsync = this.actions$
             .ofType(__WEBPACK_IMPORTED_MODULE_3__helpers_actionTypes__["b" /* MUTATE_ASYNC */])
             .mergeMap(function (action) {
-            var url = action.url, _a = action.transform, transform = _a === void 0 ? identity : _a, update = action.update, body = action.body, optimisticUpdate = action.optimisticUpdate, _b = action.options, options = _b === void 0 ? {} : _b;
+            var url = action.url, _a = action.transform, transform = _a === void 0 ? identity : _a, update = action.update, body = action.body, meta = action.meta, optimisticUpdate = action.optimisticUpdate, _b = action.options, options = _b === void 0 ? {} : _b;
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__helpers_invariant__["a" /* invariant */])(!!url, 'Missing required `url` field in action handler');
             var state = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__helpers_getLatest__["a" /* getLatest */])(_this.store);
             var entities = _this.config && _this.config.entitiesSelector && _this.config.entitiesSelector(state)
@@ -1531,7 +1532,7 @@ var NgrxQueryEffects = (function () {
             };
             // Note: only the entities that are included in `optimisticUpdate` will be passed along in the
             // `mutateStart` action as `optimisticEntities`
-            _this.store.dispatch(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateStart"](url, body, request, optimisticEntities, queryKey));
+            _this.store.dispatch(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateStart"](url, body, meta, request, optimisticEntities, queryKey));
             return _this.http.request(url, request)
                 .map(function (response) {
                 if (!response.ok) {
@@ -1542,9 +1543,9 @@ var NgrxQueryEffects = (function () {
                 var resText = (response && response.text()) || undefined;
                 var transformed = transform(resBody, resText, response);
                 var newEntities = updateEntities(update, entities, transformed);
-                return __WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateSuccess"](url, body, resStatus, newEntities, queryKey);
+                return __WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateSuccess"](url, body, meta, resStatus, newEntities, queryKey);
             })
-                .catch(function (errResponse) { return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateFailure"](url, body, errResponse.status, entities, queryKey)); });
+                .catch(function (errResponse) { return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateFailure"](url, body, meta, errResponse.status, entities, queryKey)); });
         });
     }
     return NgrxQueryEffects;
