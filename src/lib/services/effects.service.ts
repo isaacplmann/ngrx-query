@@ -154,7 +154,7 @@ export class NgrxQueryEffects {
             });
         })
         .catch((errResponse, caught) => {
-          if (!errResponse.text) {
+          if (!errResponse.text || typeof errResponse.text !== 'function') {
             throw errResponse;
           }
           return Observable.of(actions.requestFailure(
@@ -203,7 +203,7 @@ export class NgrxQueryEffects {
 
       // Note: only the entities that are included in `optimisticUpdate` will be passed along in the
       // `mutateStart` action as `optimisticEntities`
-      this.store.dispatch(actions.mutateStart(url, body, meta, request, optimisticEntities, queryKey));
+      this.store.dispatch(actions.mutateStart(url, body, request, optimisticEntities, queryKey, meta));
 
       return this.http.request(url, request)
         .map(response => {
@@ -216,9 +216,18 @@ export class NgrxQueryEffects {
 
           const transformed = transform(resBody, resText, response);
           const newEntities = updateEntities(update, entities, transformed);
-          return actions.mutateSuccess(url, body, meta, resStatus, newEntities, queryKey);
+          return actions.mutateSuccess(url, body, resStatus, newEntities, queryKey, resBody, resText, response.headers, meta);
         })
-        .catch(errResponse => Observable.of(actions.mutateFailure(url, body, meta, errResponse.status, entities, queryKey)));
+        .catch((errResponse) => {
+          if (!errResponse.text || typeof errResponse.text !== 'function') {
+            throw errResponse;
+          }
+          return Observable.of(
+            actions.mutateFailure(
+              url, body, errResponse.status, entities, queryKey, errResponse.text(), errResponse.text(), errResponse.headers, meta
+            )
+          );
+        });
     });
   // @Effect() public cancelQuery: Observable<Action> = this.actions$;
   // @Effect() public reset: Observable<Action> = this.actions$;
