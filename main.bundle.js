@@ -1502,7 +1502,7 @@ var NgrxQueryEffects = (function () {
                 });
             })
                 .catch(function (errResponse, caught) {
-                if (!errResponse.text) {
+                if (!errResponse.text || typeof errResponse.text !== 'function') {
                     throw errResponse;
                 }
                 return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["requestFailure"](url, body, errResponse.status, errResponse.text(), meta, queryKey));
@@ -1545,7 +1545,12 @@ var NgrxQueryEffects = (function () {
                 var newEntities = updateEntities(update, entities, transformed);
                 return __WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateSuccess"](url, body, resStatus, newEntities, queryKey, resBody, resText, response.headers, meta);
             })
-                .catch(function (errResponse) { return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateFailure"](url, body, errResponse.status, entities, queryKey, errResponse.text(), errResponse.text(), errResponse.headers, meta)); });
+                .catch(function (errResponse) {
+                if (!errResponse.text || typeof errResponse.text !== 'function') {
+                    throw errResponse;
+                }
+                return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_commonjs_actions__["mutateFailure"](url, body, errResponse.status, entities, queryKey, errResponse.text(), errResponse.text(), errResponse.headers, meta));
+            });
         });
     }
     return NgrxQueryEffects;
