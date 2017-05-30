@@ -1,6 +1,6 @@
 {
   "name": "ngrx-query",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "repository": {
     "type": "git",
     "url": "git://github.com/isaacplmann/ngrx-query.git"
