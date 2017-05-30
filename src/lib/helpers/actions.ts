@@ -14,12 +14,12 @@ export interface HttpOptions {
 
 export interface BaseParams {
     body?: Object;
+    meta?: Object;
     url: string;
     queryKey?: string;
 }
 export interface RequestParams extends BaseParams {
     force?: boolean;
-    meta?: Object;
     options?: HttpOptions;
     retry?: boolean;
     transform?: TransformFunction;
