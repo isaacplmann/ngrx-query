@@ -1,5 +1,5 @@
 import { NgrxQueryConfig } from './ngrxQueryConfig';
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
 export const statusCodes = {
   GATEWAY_TIMEOUT: 504,
@@ -9,7 +9,7 @@ export const statusCodes = {
   UNKNOWN: 0,
 };
 
-export const NGRX_QUERY_CONFIG = new OpaqueToken('NGRX_QUERY_CONFIG');
+export const NGRX_QUERY_CONFIG = new InjectionToken('NGRX_QUERY_CONFIG');
 
 export const defaultEntitiesSelector = state => state.entities;
 export const defaultQueriesSelector = state => state.queries;

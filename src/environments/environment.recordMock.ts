@@ -6,5 +6,5 @@ import { MockMode } from '../lib/helpers/ngrxQueryConfig';
 
 export const environment = {
   production: false,
-  mockMode: MockMode.None,
+  mockMode: MockMode.Record,
 };

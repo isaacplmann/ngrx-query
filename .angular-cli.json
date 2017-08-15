@@ -25,6 +25,8 @@
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
+        "record": "environments/environment.recordMock.ts",
+        "mock": "environments/environment.useMock.ts",
         "prod": "environments/environment.prod.ts"
       }
     }

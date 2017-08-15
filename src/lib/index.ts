@@ -13,9 +13,9 @@ import 'rxjs/add/observable/throw';
 
 export { NgrxQueryModule } from './ngrx-query';
 export { NgrxQueryEffects } from './services/effects.service';
-export { default as entitiesReducer } from 'redux-query/dist/commonjs/reducers/entities';
-export { default as queriesReducer } from 'redux-query/dist/commonjs/reducers/queries';
-export * from 'redux-query/dist/commonjs/selectors/query';
+export { default as entitiesReducer } from 'redux-query/dist/es/reducers/entities';
+export { default as queriesReducer } from 'redux-query/dist/es/reducers/queries';
+export * from 'redux-query/dist/es/selectors/query';
 export { ConnectService, ConnectRequestParams, ConnectMutateParams } from './services/connect.service';
 export { ConnectEntityService } from './services/connectEntity.service';
 export { ConnectRequestDirective } from './directives/connect.directive';

@@ -15,7 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
     ConnectRequestDirective,
   ],
   imports: [
-    EffectsModule.run(NgrxQueryEffects),
+    EffectsModule.forFeature([NgrxQueryEffects]),
   ],
 })
 export class NgrxQueryModule {

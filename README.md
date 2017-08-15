@@ -33,7 +33,7 @@ For example:
   // ...
   imports: [
     // ...
-    StoreModule.provideStore({
+    StoreModule.forRoot({
       entities: entitiesReducer,
       queries: queriesReducer,
     }),
@@ -45,7 +45,7 @@ export class AppModule {}
 
 ## Dependencies
 
-All dependencies are listed in [`package.json`](./package.json). @angular/core, @angular/http, @ngrx/store and @ngrx/effects are peer dependencies. HTTP requests are made using `@angular/http`'s Http service.
+All dependencies are listed in [`package.json`](./package.json). @angular/core, @angular/http, @ngrx/store (^4.0.2) and @ngrx/effects (^4.0.2) are peer dependencies. HTTP requests are made using `@angular/http`'s Http service.
 
 ## Global config
 

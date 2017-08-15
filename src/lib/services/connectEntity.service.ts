@@ -1,4 +1,4 @@
-import { withoutPath } from 'redux-query/dist/commonjs/reducers/entities';
+import { withoutPath } from 'redux-query/dist/es/reducers/entities';
 import { ConnectService } from './connect.service';
 import { NgrxQueryConfig, Selector } from '../helpers/ngrxQueryConfig';
 import { mutateAsync, MutateParams, requestAsync, RequestParams } from '../helpers/actions';

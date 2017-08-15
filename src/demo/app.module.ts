@@ -1,3 +1,6 @@
+import { EffectsModule } from '@ngrx/effects';
+import { environment } from '../environments/environment';
+import { MockMode } from '../lib/helpers/ngrxQueryConfig';
 import { RangerListDataDirective } from './ranger/ranger-list.data.directive';
 import { RangerDetailComponent } from './ranger/ranger-detail.component';
 import { RangerListComponent } from './ranger/ranger-list.component';
@@ -21,6 +24,12 @@ export function entitiesSelector(state): any {
 export function queriesSelector(state): any {
   return state.queries1;
 }
+export function saveMockData(queryKey, actions): void {
+  return window.localStorage.setItem('mockApi-' + queryKey, JSON.stringify(actions));
+}
+export function getMockData(queryKey): any[] {
+  return JSON.parse(window.localStorage.getItem('mockApi-' + queryKey));
+}
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -32,17 +41,23 @@ export function queriesSelector(state): any {
   ],
   imports: [
     BrowserModule,
+    EffectsModule.forRoot([]),
     HttpModule,
     FormsModule,
-    StoreModule.provideStore({
+    StoreModule.forRoot({
       entities1: entitiesReducer,
       queries1: queriesReducer,
     }),
     NgrxQueryModule.forRoot({
       entitiesSelector,
       queriesSelector,
+      mock: {
+        mode: environment.mockMode,
+        saveMockData,
+        getMockData,
+      },
     }),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [
      BaseRequestOptions,

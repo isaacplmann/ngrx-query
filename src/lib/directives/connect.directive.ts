@@ -43,7 +43,7 @@ export class ConnectRequestDirective implements OnInit, OnDestroy {
           setTimeout(() => {
             this.host.nqData = response;
             if (this.host.changeDetector) {
-              this.host.changeDetector.detectChanges();
+              this.host.changeDetector.markForCheck();
             }
           });
         }

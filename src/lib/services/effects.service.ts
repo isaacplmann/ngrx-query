@@ -1,5 +1,5 @@
 import { Response, ResponseOptions } from '@angular/http';
-import { NgrxQueryConfig } from '../helpers/ngrxQueryConfig';
+import { MockMode, NgrxQueryConfig } from '../helpers/ngrxQueryConfig';
 import { defaultEntitiesSelector, defaultQueriesSelector, defaultBackoffConfig, defaultRetryableStatusCodes } from './../helpers/config';
 import { invariant } from '../helpers/invariant';
 import * as ngrxQueryActionTypes from '../helpers/actionTypes';
@@ -9,10 +9,10 @@ import { Inject, Injectable } from '@angular/core';
 import { Http, Request } from '@angular/http';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import * as actions from 'redux-query/dist/commonjs/actions';
-import * as actionTypes from 'redux-query/dist/commonjs/constants/action-types';
-import * as httpMethods from 'redux-query/dist/commonjs/constants/http-methods';
-import { reconcileQueryKey } from 'redux-query/dist/commonjs/lib/query-key';
+import * as actions from 'redux-query/dist/es/actions';
+import * as actionTypes from 'redux-query/dist/es/constants/action-types';
+import * as httpMethods from 'redux-query/dist/es/constants/http-methods';
+import { reconcileQueryKey } from 'redux-query/dist/es/lib/query-key';
 import { Observable } from 'rxjs/Observable';
 
 export function identity(x: any, y?: any, z?: any): any {
@@ -99,8 +99,31 @@ export class NgrxQueryEffects {
       };
 
       return Observable.of({})
-        .mergeMap(() => {
+        .do(() => {
           this.store.dispatch(actions.requestStart(url, body, request, meta, queryKey));
+        })
+        .filter(() => {
+          if (this.config.mock && this.config.mock.mode === MockMode.Mock) {
+            const mockActions = this.config.mock.getMockData(queryKey);
+            if (mockActions) {
+              mockActions.forEach(mockAction => {
+                this.store.dispatch(mockAction);
+              });
+            } else {
+              this.store.dispatch(actions.requestFailure(
+                url,
+                body,
+                500,
+                'No mock data recorded for ' + queryKey,
+                meta,
+                queryKey,
+              ));
+            }
+            return false;
+          }
+          return true;
+        })
+        .mergeMap(() => {
           return this.http.request(url, request)
             .map(response => {
               if (!response.ok) {
@@ -121,19 +144,26 @@ export class NgrxQueryEffects {
           }
           const transformed = transform(parsedResponse, response.text(), response);
           const newEntities = updateEntities(update, entities, transformed);
-          this.store.dispatch(actions.requestSuccess(url, body, response.status, newEntities, meta, queryKey));
+          const requestSuccessAction = actions.requestSuccess(
+            url, body, response.status, newEntities, meta, queryKey, parsedResponse, response.text(), response.headers
+          );
+          this.store.dispatch(requestSuccessAction);
           const end = new Date();
           const duration = end.valueOf() - start.valueOf();
-          return {
+          const requestAsyncAction = {
             body: parsedResponse,
             duration,
             entities: newEntities,
             meta,
             status: response.status,
-            text: response.text,
+            text: response.text(),
             transformed,
             type: actionTypes.REQUEST_ASYNC,
           };
+          if (this.config.mock && this.config.mock.mode === MockMode.Record) {
+            this.config.mock.saveMockData(queryKey, [requestSuccessAction, requestAsyncAction]);
+          }
+          return requestAsyncAction;
         })
         .retryWhen(attempts => {
           const backoff = this.config && this.config.backoff || defaultBackoffConfig;
@@ -153,24 +183,30 @@ export class NgrxQueryEffects {
               }
             });
         })
-        .catch((errResponse, caught) => {
+        .catch((errResponse: Response, caught) => {
           if (!errResponse.text || typeof errResponse.text !== 'function') {
             throw errResponse;
           }
-          return Observable.of(actions.requestFailure(
+          const requestFailureAction = actions.requestFailure(
             url,
             body,
             errResponse.status,
-            errResponse.text(),
+            errResponse.json(),
             meta,
             queryKey,
-          ));
+            errResponse.text(),
+            errResponse.headers
+          );
+          if (this.config.mock && this.config.mock.mode === MockMode.Record) {
+            this.config.mock.saveMockData(queryKey, [requestFailureAction]);
+          }
+          return Observable.of(requestFailureAction);
         });
     });
 
   @Effect() public mutateAsync: Observable<any> = this.actions$
     .ofType(ngrxQueryActionTypes.MUTATE_ASYNC)
-    .mergeMap((action: any) => {
+    .map((action: any) => {
       const {
         url,
         transform = identity,
@@ -204,7 +240,48 @@ export class NgrxQueryEffects {
       // Note: only the entities that are included in `optimisticUpdate` will be passed along in the
       // `mutateStart` action as `optimisticEntities`
       this.store.dispatch(actions.mutateStart(url, body, request, optimisticEntities, queryKey, meta));
-
+      return { ...action, request, entities, queryKey };
+    })
+    .filter((action: any) => {
+      if (!this.config.mock || this.config.mock.mode !== MockMode.Mock) {
+        // Not mocking so continue
+        return true;
+      }
+      const {
+        url,
+        body,
+        meta,
+        queryKey,
+      } = action;
+      const mockActions = this.config.mock.getMockData(queryKey);
+      if (mockActions) {
+        mockActions.forEach(mockAction => {
+          this.store.dispatch(mockAction);
+        });
+      } else {
+        this.store.dispatch(actions.requestFailure(
+          url,
+          body,
+          500,
+          'No mock data recorded for ' + queryKey,
+          meta,
+          queryKey,
+        ));
+      }
+      // Dispatched mock actions so abort network call
+      return false;
+    })
+    .mergeMap((action: any) => {
+      const {
+        url,
+        transform = identity,
+        update,
+        body,
+        meta,
+        request,
+        entities,
+        queryKey,
+      } = action;
       return this.http.request(url, request)
         .map(response => {
           if (!response.ok) {

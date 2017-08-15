@@ -1,20 +1,16 @@
-import { REQUEST_FAILURE } from 'redux-query/dist/commonjs/constants/action-types';
-import { REQUEST_ASYNC } from './../helpers/actionTypes';
-import { MockServerService, SERVER_STATE } from './../../demo/mockServer';
-import { NGRX_QUERY_CONFIG } from './../helpers/config';
-import { NgrxQueryModule } from './../ngrx-query';
-import { StoreModule } from '@ngrx/store';
-import { requestAsync } from './../helpers/actions';
-import { NgrxQueryEffects } from './effects.service';
 import { Injector } from '@angular/core';
-import { async, fakeAsync, flushMicrotasks, getTestBed, inject, TestBed, tick } from '@angular/core/testing';
+import { async, fakeAsync, getTestBed, TestBed, tick } from '@angular/core/testing';
+import { BaseRequestOptions, Http } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
+import { StoreModule } from '@ngrx/store';
+import { REQUEST_ASYNC, REQUEST_FAILURE } from 'redux-query/dist/es/constants/action-types';
+
 import { entitiesReducer, queriesReducer } from '../index';
-import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
-import {Injectable, ReflectiveInjector} from '@angular/core';
-import {BaseRequestOptions, ConnectionBackend, Http, RequestOptions} from '@angular/http';
-import {Response, ResponseOptions} from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import * as actionTypes from 'redux-query/dist/commonjs/constants/action-types';
+import { MockServerService, SERVER_STATE } from './../../demo/mockServer';
+import { requestAsync } from './../helpers/actions';
+import { NGRX_QUERY_CONFIG } from './../helpers/config';
+import { NgrxQueryEffects } from './effects.service';
 
 export function httpFactory(backend, options): Http {
   return new Http(backend, options);
@@ -72,14 +68,14 @@ describe('NgrxQueryEffects', () => {
 
     it('should successfully retrieve a list', () => {
       ngrxQueryEffects.requestAsync.subscribe(result => {
-        expect(result.type).toEqual(actionTypes.REQUEST_ASYNC);
+        expect(result.type).toEqual(REQUEST_ASYNC);
       });
       backend.resolveAllConnections();
     });
     it('should retry and fail if server busy', fakeAsync(() => {
       mockServer.state = SERVER_STATE.BUSY;
       ngrxQueryEffects.requestAsync.subscribe(result => {
-        expect(result.type).toEqual(actionTypes.REQUEST_FAILURE);
+        expect(result.type).toEqual(REQUEST_FAILURE);
       });
       backend.resolveAllConnections();
       tick(10000);
@@ -88,7 +84,7 @@ describe('NgrxQueryEffects', () => {
     it('should retry if server busy and succeed if server comes back', fakeAsync(() => {
       mockServer.state = SERVER_STATE.BUSY;
       ngrxQueryEffects.requestAsync.subscribe(result => {
-        expect(result.type).toEqual(actionTypes.REQUEST_ASYNC);
+        expect(result.type).toEqual(REQUEST_ASYNC);
       });
       backend.resolveAllConnections();
       tick(5000);
@@ -98,7 +94,14 @@ describe('NgrxQueryEffects', () => {
     it('should fail immediately if server errors', () => {
       mockServer.state = SERVER_STATE.ERROR;
       ngrxQueryEffects.requestAsync.subscribe(result => {
-        expect(result.type).toEqual(actionTypes.REQUEST_FAILURE);
+        expect(result.type).toEqual(REQUEST_FAILURE);
+      });
+      backend.resolveAllConnections();
+    });
+    it('should fail immediately if unauthorized', () => {
+      mockServer.state = SERVER_STATE.UNAUTHORIZED;
+      ngrxQueryEffects.requestAsync.subscribe(result => {
+        expect(result.type).toEqual(REQUEST_FAILURE);
       });
       backend.resolveAllConnections();
     });

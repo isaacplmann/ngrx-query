@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { MockConnection } from '@angular/http/testing';
-import { RequestMethod, Response, ResponseOptions, ReadyState } from "@angular/http";
+import { RequestMethod, Response, ResponseOptions, ReadyState } from '@angular/http';
 
 export enum SERVER_STATE {
   ON,
   BUSY,
   ERROR,
+  UNAUTHORIZED,
 }
 
 export interface Ranger {
@@ -60,6 +61,12 @@ export class MockServerService {
       connection.mockRespond(new Response(new ResponseOptions({
         status: 429,
         body: { error: 'Too many requests'},
+      })));
+      return;
+    } else if (this.state === SERVER_STATE.UNAUTHORIZED) {
+      connection.mockRespond(new Response(new ResponseOptions({
+        status: 401,
+        body: { error: 'Unauthorized'},
       })));
       return;
     } else if (this.state === SERVER_STATE.ERROR) {

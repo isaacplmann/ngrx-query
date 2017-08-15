@@ -4,9 +4,20 @@ export interface BackoffConfig {
   maxDuration: number;
   minDuration: number;
 };
+export enum MockMode {
+  None,
+  Record,
+  Mock,
+}
+export interface MockConfig {
+  mode: MockMode;
+  saveMockData: (queryKey: string, mockResponseActions: any[]) => void;
+  getMockData: (queryKey: string) => any[];
+}
 export interface NgrxQueryConfig {
   queriesSelector?: Selector;
   entitiesSelector?: Selector;
   backoff?: BackoffConfig;
   retryableStatusCodes?: number[];
+  mock?: MockConfig;
 };
