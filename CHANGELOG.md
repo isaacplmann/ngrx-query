@@ -1,3 +1,12 @@
+<a name="1.0.1"></a>
+# [1.0.1](https://github.com/isaacplmann/ngrx-query) (2017-11-02)
+
+
+### Chore
+
+* Support angular 4.x and 5.x
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/isaacplmann/ngrx-query) (2017-08-15)
 
@@ -5,6 +14,7 @@
 ### BREAKING CHANGES
 
 * Upgrade to ngrx@4
+
 
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/isaacplmann/ngrx-query) (2017-08-03)

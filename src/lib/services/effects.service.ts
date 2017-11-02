@@ -103,7 +103,7 @@ export class NgrxQueryEffects {
           this.store.dispatch(actions.requestStart(url, body, request, meta, queryKey));
         })
         .filter(() => {
-          if (this.config.mock && this.config.mock.mode === MockMode.Mock) {
+          if (this.config && this.config.mock && this.config.mock.mode === MockMode.Mock) {
             const mockActions = this.config.mock.getMockData(queryKey);
             if (mockActions) {
               mockActions.forEach(mockAction => {
@@ -160,7 +160,7 @@ export class NgrxQueryEffects {
             transformed,
             type: actionTypes.REQUEST_ASYNC,
           };
-          if (this.config.mock && this.config.mock.mode === MockMode.Record) {
+          if (this.config && this.config.mock && this.config.mock.mode === MockMode.Record) {
             this.config.mock.saveMockData(queryKey, [requestSuccessAction, requestAsyncAction]);
           }
           return requestAsyncAction;
@@ -197,7 +197,7 @@ export class NgrxQueryEffects {
             errResponse.text(),
             errResponse.headers
           );
-          if (this.config.mock && this.config.mock.mode === MockMode.Record) {
+          if (this.config && this.config.mock && this.config.mock.mode === MockMode.Record) {
             this.config.mock.saveMockData(queryKey, [requestFailureAction]);
           }
           return Observable.of(requestFailureAction);
@@ -243,7 +243,7 @@ export class NgrxQueryEffects {
       return { ...action, request, entities, queryKey };
     })
     .filter((action: any) => {
-      if (!this.config.mock || this.config.mock.mode !== MockMode.Mock) {
+      if (!this.config || !this.config.mock || this.config.mock.mode !== MockMode.Mock) {
         // Not mocking so continue
         return true;
       }
