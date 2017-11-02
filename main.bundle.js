@@ -1,15 +1,19 @@
 webpackJsonp(["main"],{
 
-/***/ "../../../../../src lazy recursive":
+/***/ "../../../../../src/$$_gendir lazy recursive":
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
-	return new Promise(function(resolve, reject) { reject(new Error("Cannot find module '" + req + "'.")); });
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
 }
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = "../../../../../src lazy recursive";
+webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 
 /***/ }),
 
@@ -58,7 +62,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var AppComponent = (function () {
+var AppComponent = /** @class */ (function () {
     function AppComponent(connectService, mockServer) {
         this.connectService = connectService;
         this.mockServer = mockServer;
@@ -148,7 +152,7 @@ function saveMockData(queryKey, actions) {
 function getMockData(queryKey) {
     return JSON.parse(window.localStorage.getItem('mockApi-' + queryKey));
 }
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule(appRef, mockBackend, mockServer) {
         var _this = this;
         this.appRef = appRef;
@@ -259,7 +263,7 @@ var defaultRangers = [
         color: 'blue',
     },
 ];
-var MockServerService = (function () {
+var MockServerService = /** @class */ (function () {
     function MockServerService() {
         this.rangers = defaultRangers;
         this.state = SERVER_STATE.ON;
@@ -536,7 +540,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var RangerDetailComponent = (function () {
+var RangerDetailComponent = /** @class */ (function () {
     function RangerDetailComponent(changeDetector) {
         this.changeDetector = changeDetector;
         this.nqData = undefined;
@@ -596,7 +600,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var RangerListComponent = (function () {
+var RangerListComponent = /** @class */ (function () {
     function RangerListComponent(connectService, changeDetector) {
         this.connectService = connectService;
         this.changeDetector = changeDetector;
@@ -683,7 +687,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
-var RangerListDataDirective = (function (_super) {
+var RangerListDataDirective = /** @class */ (function (_super) {
     __extends(RangerListDataDirective, _super);
     function RangerListDataDirective(connect, changeDetector, host) {
         var _this = _super.call(this, connect, changeDetector, host) || this;
@@ -750,7 +754,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
-var ConnectRequestDirective = (function () {
+var ConnectRequestDirective = /** @class */ (function () {
     function ConnectRequestDirective(connectService, changeDetector, host) {
         this.connectService = connectService;
         this.changeDetector = changeDetector;
@@ -826,7 +830,7 @@ var ConnectRequestDirective = (function () {
 /* harmony export (immutable) */ __webpack_exports__["b"] = provideNqConnectedComponent;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 
-var NqConnectedComponent = (function () {
+var NqConnectedComponent = /** @class */ (function () {
     function NqConnectedComponent() {
     }
     return NqConnectedComponent;
@@ -968,30 +972,18 @@ var MockMode;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_do__ = __webpack_require__("../../../../rxjs/add/operator/do.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__("../../../../rxjs/add/operator/filter.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__ = __webpack_require__("../../../../rxjs/add/observable/of.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_retryWhen__ = __webpack_require__("../../../../rxjs/add/operator/retryWhen.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_retryWhen___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_retryWhen__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_range__ = __webpack_require__("../../../../rxjs/add/observable/range.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_range___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_range__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_timer__ = __webpack_require__("../../../../rxjs/add/observable/timer.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_timer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_timer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_mergeMap__ = __webpack_require__("../../../../rxjs/add/operator/mergeMap.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_mergeMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_take__ = __webpack_require__("../../../../rxjs/add/operator/take.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_take___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_take__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_zip__ = __webpack_require__("../../../../rxjs/add/operator/zip.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_zip___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_zip__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_observable_throw__ = __webpack_require__("../../../../rxjs/add/observable/throw.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_observable_throw___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_add_observable_throw__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_do__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/do.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/filter.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__ = __webpack_require__("../../../../rxjs/_esm5/add/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_retryWhen__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/retryWhen.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_range__ = __webpack_require__("../../../../rxjs/_esm5/add/observable/range.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_observable_timer__ = __webpack_require__("../../../../rxjs/_esm5/add/observable/timer.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_mergeMap__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/mergeMap.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_take__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/take.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_zip__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/zip.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_add_observable_throw__ = __webpack_require__("../../../../rxjs/_esm5/add/observable/throw.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ngrx_query__ = __webpack_require__("../../../../../src/lib/ngrx-query.ts");
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NgrxQueryModule", function() { return __WEBPACK_IMPORTED_MODULE_12__ngrx_query__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_effects_service__ = __webpack_require__("../../../../../src/lib/services/effects.service.ts");
@@ -1078,7 +1070,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var NgrxQueryModule = (function () {
+var NgrxQueryModule = /** @class */ (function () {
     function NgrxQueryModule() {
     }
     NgrxQueryModule_1 = NgrxQueryModule;
@@ -1141,7 +1133,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
-var ConnectService = (function () {
+var ConnectService = /** @class */ (function () {
     function ConnectService(store, config) {
         this.store = store;
         this.config = config;
@@ -1214,7 +1206,7 @@ function arrayToObjectsById(array, keyOf) {
         return objectsById;
     }, {});
 }
-var ConnectEntityService = (function () {
+var ConnectEntityService = /** @class */ (function () {
     function ConnectEntityService(connectService) {
         this.connectService = connectService;
     }
@@ -1353,8 +1345,7 @@ var ConnectEntityService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_redux_query_dist_es_constants_http_methods___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_redux_query_dist_es_constants_http_methods__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_redux_query_dist_es_lib_query_key__ = __webpack_require__("../../../../redux-query/dist/es/lib/query-key.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_redux_query_dist_es_lib_query_key___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_redux_query_dist_es_lib_query_key__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -1417,7 +1408,7 @@ function getPendingQueries(queries) {
     return queries.filter(function (query) { return query.isPending; });
 }
 ;
-var NgrxQueryEffects = (function () {
+var NgrxQueryEffects = /** @class */ (function () {
     // @Effect() public cancelQuery: Observable<Action> = this.actions$;
     // @Effect() public reset: Observable<Action> = this.actions$;
     function NgrxQueryEffects(actions$, store, http, config) {
@@ -1459,12 +1450,12 @@ var NgrxQueryEffects = (function () {
                 headers: options.headers,
                 withCredentials: options.credentials === 'include',
             };
-            return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of({})
+            return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["a" /* Observable */].of({})
                 .do(function () {
                 _this.store.dispatch(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_es_actions__["requestStart"](url, body, request, meta, queryKey));
             })
                 .filter(function () {
-                if (_this.config.mock && _this.config.mock.mode === __WEBPACK_IMPORTED_MODULE_0__helpers_ngrxQueryConfig__["a" /* MockMode */].Mock) {
+                if (_this.config && _this.config.mock && _this.config.mock.mode === __WEBPACK_IMPORTED_MODULE_0__helpers_ngrxQueryConfig__["a" /* MockMode */].Mock) {
                     var mockActions = _this.config.mock.getMockData(queryKey);
                     if (mockActions) {
                         mockActions.forEach(function (mockAction) {
@@ -1514,7 +1505,7 @@ var NgrxQueryEffects = (function () {
                     transformed: transformed,
                     type: __WEBPACK_IMPORTED_MODULE_11_redux_query_dist_es_constants_action_types__["REQUEST_ASYNC"],
                 };
-                if (_this.config.mock && _this.config.mock.mode === __WEBPACK_IMPORTED_MODULE_0__helpers_ngrxQueryConfig__["a" /* MockMode */].Record) {
+                if (_this.config && _this.config.mock && _this.config.mock.mode === __WEBPACK_IMPORTED_MODULE_0__helpers_ngrxQueryConfig__["a" /* MockMode */].Record) {
                     _this.config.mock.saveMockData(queryKey, [requestSuccessAction, requestAsyncAction]);
                 }
                 return requestAsyncAction;
@@ -1522,13 +1513,13 @@ var NgrxQueryEffects = (function () {
                 .retryWhen(function (attempts) {
                 var backoff = _this.config && _this.config.backoff || __WEBPACK_IMPORTED_MODULE_1__helpers_config__["b" /* defaultBackoffConfig */];
                 var retryableStatusCodes = _this.config && _this.config.retryableStatusCodes || __WEBPACK_IMPORTED_MODULE_1__helpers_config__["e" /* defaultRetryableStatusCodes */];
-                return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].range(1, backoff.maxAttempts + 1)
+                return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["a" /* Observable */].range(1, backoff.maxAttempts + 1)
                     .zip(attempts, function (i, response) { return ({ response: response, i: i }); })
                     .flatMap(function (_a) {
                     var response = _a.response, i = _a.i;
                     if (i < backoff.maxAttempts && retryableStatusCodes.indexOf(response.status) >= 0) {
                         // Delay retry by min duration the first attempt, up to max duration on the (maxAttempts)th attempt
-                        return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].timer(backoff.minDuration +
+                        return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["a" /* Observable */].timer(backoff.minDuration +
                             (i - 1) * (backoff.maxDuration - backoff.minDuration) / backoff.maxAttempts);
                     }
                     else {
@@ -1542,10 +1533,10 @@ var NgrxQueryEffects = (function () {
                     throw errResponse;
                 }
                 var requestFailureAction = __WEBPACK_IMPORTED_MODULE_10_redux_query_dist_es_actions__["requestFailure"](url, body, errResponse.status, errResponse.json(), meta, queryKey, errResponse.text(), errResponse.headers);
-                if (_this.config.mock && _this.config.mock.mode === __WEBPACK_IMPORTED_MODULE_0__helpers_ngrxQueryConfig__["a" /* MockMode */].Record) {
+                if (_this.config && _this.config.mock && _this.config.mock.mode === __WEBPACK_IMPORTED_MODULE_0__helpers_ngrxQueryConfig__["a" /* MockMode */].Record) {
                     _this.config.mock.saveMockData(queryKey, [requestFailureAction]);
                 }
-                return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of(requestFailureAction);
+                return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["a" /* Observable */].of(requestFailureAction);
             });
         });
         this.mutateAsync = this.actions$
@@ -1576,7 +1567,7 @@ var NgrxQueryEffects = (function () {
             return __assign({}, action, { request: request, entities: entities, queryKey: queryKey });
         })
             .filter(function (action) {
-            if (!_this.config.mock || _this.config.mock.mode !== __WEBPACK_IMPORTED_MODULE_0__helpers_ngrxQueryConfig__["a" /* MockMode */].Mock) {
+            if (!_this.config || !_this.config.mock || _this.config.mock.mode !== __WEBPACK_IMPORTED_MODULE_0__helpers_ngrxQueryConfig__["a" /* MockMode */].Mock) {
                 // Not mocking so continue
                 return true;
             }
@@ -1611,17 +1602,17 @@ var NgrxQueryEffects = (function () {
                 if (!errResponse.text || typeof errResponse.text !== 'function') {
                     throw errResponse;
                 }
-                return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"].of(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_es_actions__["mutateFailure"](url, body, errResponse.status, entities, queryKey, errResponse.text(), errResponse.text(), errResponse.headers, meta));
+                return __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["a" /* Observable */].of(__WEBPACK_IMPORTED_MODULE_10_redux_query_dist_es_actions__["mutateFailure"](url, body, errResponse.status, entities, queryKey, errResponse.text(), errResponse.text(), errResponse.headers, meta));
             });
         });
     }
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_8__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"]) === "function" && _a || Object)
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["a" /* Observable */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["a" /* Observable */]) === "function" && _a || Object)
     ], NgrxQueryEffects.prototype, "requestAsync", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_8__ngrx_effects__["b" /* Effect */])(),
-        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["Observable"]) === "function" && _b || Object)
+        __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["a" /* Observable */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14_rxjs_Observable__["a" /* Observable */]) === "function" && _b || Object)
     ], NgrxQueryEffects.prototype, "mutateAsync", void 0);
     NgrxQueryEffects = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_6__angular_core__["B" /* Injectable */])(),
