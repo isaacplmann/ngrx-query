@@ -1,6 +1,14 @@
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MockConnection } from '@angular/http/testing';
-import { RequestMethod, Response, ResponseOptions, ReadyState } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+
+export enum RequestMethod {
+  Get = 'GET',
+  Post = 'POST',
+  Put = 'PUT',
+  Delete = 'DELETE',
+}
 
 export enum SERVER_STATE {
   ON,
@@ -44,108 +52,95 @@ export const defaultRangers: Ranger[] = [
 ];
 
 @Injectable()
-export class MockServerService {
+export class MockServerService implements HttpInterceptor {
   rangers: Ranger[] = defaultRangers;
   state: SERVER_STATE = SERVER_STATE.ON;
 
-  handleConnection(connection: MockConnection) {
-    const method = connection.request.method;
-    const url = connection.request.url;
-    const body = JSON.parse(connection.request.getBody());
-    console.log(`${RequestMethod[method].toUpperCase()} ${url}`, body);
-    connection.response.asObservable().take(1).subscribe(response => console.log(`${response.status || 200}`, response.json()));
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const { body, method, url } = req;
     const path = url.split('/').filter(segment => segment && segment.length > 0);
     const id = +path[path.length - 1];
 
     if (this.state === SERVER_STATE.BUSY) {
-      connection.mockRespond(new Response(new ResponseOptions({
+      return of(new HttpResponse({
         status: 429,
         body: { error: 'Too many requests'},
-      })));
-      return;
+      }));
     } else if (this.state === SERVER_STATE.UNAUTHORIZED) {
-      connection.mockRespond(new Response(new ResponseOptions({
+      return of(new HttpResponse({
         status: 401,
         body: { error: 'Unauthorized'},
-      })));
-      return;
+      }));
     } else if (this.state === SERVER_STATE.ERROR) {
-      connection.mockRespond(new Response(new ResponseOptions({
+      return of(new HttpResponse({
         status: 500,
         body: { error: 'Internal server error'},
-      })));
-      return;
+      }));
     }
     switch (method) {
       case RequestMethod.Get:
         if (Number.isInteger(id)) {
-          connection.mockRespond(new Response(new ResponseOptions({
-            body: JSON.stringify(this.rangers.find(ranger => ranger.id === id)),
+          return of(new HttpResponse({
+            body: this.rangers.find(ranger => ranger.id === id),
             status: 200,
-          })));
+          }));
         } else {
-          connection.mockRespond(new Response(new ResponseOptions({
-            body: JSON.stringify(this.rangers.map(ranger => ({ id: ranger.id, name: ranger.name }))),
+          return of(new HttpResponse({
+            body: this.rangers.map(ranger => ({ id: ranger.id, name: ranger.name })),
             status: 200,
-          })));
+          }));
         }
-        break;
       case RequestMethod.Post:
         body.id = this.rangers.length;
         this.rangers.push(body);
-        connection.mockRespond(new Response(new ResponseOptions({
-          body: JSON.stringify(body),
+        return of(new HttpResponse({
+          body,
           status: 200,
-        })));
-        break;
+        }));
       case RequestMethod.Put:
         if (Number.isInteger(id)) {
           console.log(this.rangers);
           const index = this.rangers.findIndex(ranger => ranger && ranger.id === id);
           if (index >= 0) {
             this.rangers[index] = Object.assign({}, this.rangers[index], body);
-            connection.mockRespond(new Response(new ResponseOptions({
-              body: JSON.stringify(body),
+            return of(new HttpResponse({
+              body,
               status: 200,
-            })));
+            }));
           } else {
-            connection.mockRespond(new Response(new ResponseOptions({
+            return of(new HttpResponse({
               status: 404,
               body: 'Invalid ID',
-            })));
+            }));
           }
-        } else {
-          this.handleUnknown(connection);
         }
-        break;
+        return this.handleUnknown();
       case RequestMethod.Delete:
         if (Number.isInteger(id)) {
           const index = this.rangers.findIndex(ranger => ranger.id === id);
           if (index >= 0) {
             this.rangers = this.rangers.slice(0, index).concat(this.rangers.slice(index + 1));
-            connection.mockRespond(new Response(new ResponseOptions({
+            return of(new HttpResponse({
               body: { message: 'Successfully deleted id ' + id },
               status: 200,
-            })));
+            }));
           } else {
-            connection.mockRespond(new Response(new ResponseOptions({
+            return of(new HttpResponse({
               status: 404,
               body: 'Invalid ID',
-            })));
+            }));
           }
-        } else {
-          this.handleUnknown(connection);
         }
-        break;
+        return this.handleUnknown();
       default:
-        this.handleUnknown(connection);
+        return this.handleUnknown();
     }
   }
 
-  handleUnknown(connection: MockConnection) {
-    connection.mockRespond(new Response(new ResponseOptions({
+  handleUnknown(): Observable<HttpResponse<string>> {
+    return of(new HttpResponse({
       status: 404,
       body: 'Unknown api endpoint',
-    })));
+    }));
   }
 }

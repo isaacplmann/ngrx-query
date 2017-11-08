@@ -1,9 +1,7 @@
+import { RequestParams } from '../../lib';
+import { arrayToObjectsById, objectsByIdToArray } from '../../lib/services/connectEntity.service';
 import { Ranger } from '../mockServer';
 import { MutateParams } from './../../lib/helpers/actions';
-import * as url from 'url';
-import { arrayToObjectsById, objectsByIdToArray } from '../../lib/services/connectEntity.service';
-import { state } from '@angular/core';
-import { mutateAsync, RequestParams } from '../../lib';
 
 export function createGetRangerQuery(id): RequestParams {
   return {
@@ -95,7 +93,7 @@ export function createDeleteRangerQuery(id): MutateParams {
   };
 }
 
-export function rangerByIdSelector(rangerId): Ranger {
+export function rangerByIdSelector(rangerId): (any) => Ranger {
   return state => {
     if (rangerListSelector(state)) {
         return rangerListSelector(state)[rangerId];

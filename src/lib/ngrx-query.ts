@@ -1,11 +1,13 @@
-import { ConnectEntityService } from './services/connectEntity.service';
-import { NgrxQueryConfig } from './helpers/ngrxQueryConfig';
-import { ConnectRequestDirective } from './directives/connect.directive';
-import { NGRX_QUERY_CONFIG } from './helpers/config';
-import { ConnectService } from './services/connect.service';
-import { NgrxQueryEffects } from './services/effects.service';
+import { HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
+
+import { ConnectRequestDirective } from './directives/connect.directive';
+import { NGRX_QUERY_CONFIG } from './helpers/config';
+import { NgrxQueryConfig } from './helpers/ngrxQueryConfig';
+import { ConnectService } from './services/connect.service';
+import { ConnectEntityService } from './services/connectEntity.service';
+import { NgrxQueryEffects } from './services/effects.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
   ],
   imports: [
     EffectsModule.forFeature([NgrxQueryEffects]),
+    HttpClientModule,
   ],
 })
 export class NgrxQueryModule {

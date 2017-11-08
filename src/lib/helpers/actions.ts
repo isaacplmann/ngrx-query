@@ -1,4 +1,5 @@
-import * as ngrxQueryActionTypes from './actionTypes';
+import { Action } from '@ngrx/store';
+import { MUTATE_ASYNC, REQUEST_ASYNC } from './actionTypes';
 import { requestAsync as rqRequestAsync, mutateAsync as rqMutateAsync } from 'redux-query/dist/es/actions';
 
 export type TransformFunction = (body: any, text?: string, response?: Response) => { [id: string]: any};
@@ -25,6 +26,9 @@ export interface RequestParams extends BaseParams {
     transform?: TransformFunction;
     update: UpdateFunctionMap;
 };
+export interface RequestAsyncAction extends RequestParams, Action {
+  type: typeof REQUEST_ASYNC;
+}
 
 export interface MutateParams extends BaseParams {
     options?: HttpOptions;
@@ -32,8 +36,11 @@ export interface MutateParams extends BaseParams {
     transform?: TransformFunction;
     update: UpdateFunctionMap;
 };
+export interface MutateAsyncAction extends MutateParams, Action {
+  type: typeof MUTATE_ASYNC;
+}
 
 export const requestAsync
-  = (params: RequestParams) => Object.assign({}, rqRequestAsync(params), { type: ngrxQueryActionTypes.REQUEST_ASYNC });
+  = (params: RequestParams): RequestAsyncAction => Object.assign({}, rqRequestAsync(params), { type: REQUEST_ASYNC });
 export const mutateAsync
-  = (params: MutateParams) => Object.assign({}, rqMutateAsync(params), { type: ngrxQueryActionTypes.MUTATE_ASYNC });
+  = (params: MutateParams): MutateAsyncAction => Object.assign({}, rqMutateAsync(params), { type: MUTATE_ASYNC });

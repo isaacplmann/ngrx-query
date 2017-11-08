@@ -1,19 +1,26 @@
-import { Response, ResponseOptions } from '@angular/http';
-import { MockMode, NgrxQueryConfig } from '../helpers/ngrxQueryConfig';
-import { defaultEntitiesSelector, defaultQueriesSelector, defaultBackoffConfig, defaultRetryableStatusCodes } from './../helpers/config';
-import { invariant } from '../helpers/invariant';
-import * as ngrxQueryActionTypes from '../helpers/actionTypes';
-import { NGRX_QUERY_CONFIG } from '../helpers/config';
-import { getLatest } from '../helpers/getLatest';
+import { MutateAsyncAction, MutateParams, RequestAsyncAction } from '../helpers/actions';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Http, Request } from '@angular/http';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import * as actions from 'redux-query/dist/es/actions';
 import * as actionTypes from 'redux-query/dist/es/constants/action-types';
 import * as httpMethods from 'redux-query/dist/es/constants/http-methods';
-import { reconcileQueryKey } from 'redux-query/dist/es/lib/query-key';
+import { getQueryKey } from 'redux-query/dist/es/lib/query-key';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { range } from 'rxjs/observable/range';
+import { timer } from 'rxjs/observable/timer';
+import { catchError, filter, flatMap, map, mergeMap, retryWhen, tap, zip } from 'rxjs/operators';
+
+import * as ngrxQueryActionTypes from '../helpers/actionTypes';
+import { NGRX_QUERY_CONFIG } from '../helpers/config';
+import { getLatest } from '../helpers/getLatest';
+import { invariant } from '../helpers/invariant';
+import { NgrxQueryConfig } from '../helpers/ngrxQueryConfig';
+import { MockMode } from '../helpers/mockMode';
+import { ofType } from '../helpers/ofType';
+import { defaultBackoffConfig, defaultEntitiesSelector, defaultQueriesSelector, defaultRetryableStatusCodes } from './../helpers/config';
 
 export function identity(x: any, y?: any, z?: any): any {
   return x;
@@ -50,9 +57,9 @@ export function getPendingQueries(queries: any[]) {
 
 @Injectable()
 export class NgrxQueryEffects {
-  @Effect() public requestAsync: Observable<Action> = this.actions$
-    .ofType(ngrxQueryActionTypes.REQUEST_ASYNC)
-    .map((action: any) => {
+  @Effect() public requestAsync: Observable<Action> = this.actions$.pipe(
+    ofType(ngrxQueryActionTypes.REQUEST_ASYNC),
+    map((action: RequestAsyncAction) => {
       const {
         url,
         force,
@@ -63,7 +70,7 @@ export class NgrxQueryEffects {
       invariant(!!url, 'Missing required `url` field in action handler');
       invariant(!!update, 'Missing required `update` field in action handler');
 
-      const queryKey = reconcileQueryKey(action);
+      const queryKey = getQueryKey(action);
 
       const state = getLatest(this.store);
       const queries = this.config && this.config.queriesSelector && this.config.queriesSelector(state)
@@ -74,9 +81,9 @@ export class NgrxQueryEffects {
       const hasSucceeded = status >= 200 && status < 300;
       const attemptRequest = force || !queriesState || (retry !== false && !isPending && !hasSucceeded);
       return { attemptRequest, action };
-    })
-    .filter(({ attemptRequest }) => attemptRequest)
-    .mergeMap(({ action }) => {
+    }),
+    filter(({ attemptRequest }) => attemptRequest),
+    mergeMap(({ action }) => {
       const {
         url,
         body,
@@ -85,24 +92,25 @@ export class NgrxQueryEffects {
         options = <any>{},
         meta,
       } = action;
-      const queryKey = reconcileQueryKey(action);
+      const queryKey = getQueryKey(action);
 
       const start = new Date();
       const { method = httpMethods.GET } = options;
 
       const request = {
-        url,
-        method,
         body,
         headers: options.headers,
+        method,
+        observe: 'response' as 'response',
+        url,
         withCredentials: options.credentials === 'include',
       };
 
-      return Observable.of({})
-        .do(() => {
-          this.store.dispatch(actions.requestStart(url, body, request, meta, queryKey));
-        })
-        .filter(() => {
+      return of({}).pipe(
+        tap(() => {
+          this.store.dispatch(actions.requestStart({url, body, request, meta, queryKey}));
+        }),
+        filter(() => {
           if (this.config.mock && this.config.mock.mode === MockMode.Mock) {
             const mockActions = this.config.mock.getMockData(queryKey);
             if (mockActions) {
@@ -110,43 +118,39 @@ export class NgrxQueryEffects {
                 this.store.dispatch(mockAction);
               });
             } else {
-              this.store.dispatch(actions.requestFailure(
+              this.store.dispatch(actions.requestFailure({
                 url,
                 body,
-                500,
-                'No mock data recorded for ' + queryKey,
+                status: 500,
+                responseBody: 'No mock data recorded for ' + queryKey,
                 meta,
                 queryKey,
-              ));
+              }));
             }
             return false;
           }
           return true;
-        })
-        .mergeMap(() => {
-          return this.http.request(url, request)
-            .map(response => {
+        }),
+        mergeMap(() => {
+          return this.http.request(request.method, url, request)
+            .pipe(map(response => {
               if (!response.ok) {
                 throw response;
               }
               return response;
-            });
-        })
-        .map(response => {
+            }));
+        }),
+        map(response => {
           const callbackState = getLatest(this.store);
           const entities = this.config && this.config.entitiesSelector && this.config.entitiesSelector(callbackState)
             || defaultEntitiesSelector(callbackState);
-          let parsedResponse: string;
-          try {
-            parsedResponse = response.json();
-          } catch (ex) {
-            parsedResponse = response.text();
-          }
-          const transformed = transform(parsedResponse, response.text(), response);
+          const parsedResponse = response.body;
+          const transformed = transform(parsedResponse, response.body, response);
           const newEntities = updateEntities(update, entities, transformed);
-          const requestSuccessAction = actions.requestSuccess(
-            url, body, response.status, newEntities, meta, queryKey, parsedResponse, response.text(), response.headers
-          );
+          const requestSuccessAction = actions.requestSuccess({
+            url, body, status: response.status, entities: newEntities, meta, queryKey, responseBody: parsedResponse,
+            responseText: response.body, responseHeaders: response.headers
+          });
           this.store.dispatch(requestSuccessAction);
           const end = new Date();
           const duration = end.valueOf() - start.valueOf();
@@ -156,7 +160,7 @@ export class NgrxQueryEffects {
             entities: newEntities,
             meta,
             status: response.status,
-            text: response.text(),
+            text: response.body,
             transformed,
             type: actionTypes.REQUEST_ASYNC,
           };
@@ -164,16 +168,16 @@ export class NgrxQueryEffects {
             this.config.mock.saveMockData(queryKey, [requestSuccessAction, requestAsyncAction]);
           }
           return requestAsyncAction;
-        })
-        .retryWhen(attempts => {
+        }),
+        retryWhen(attempts => {
           const backoff = this.config && this.config.backoff || defaultBackoffConfig;
           const retryableStatusCodes = this.config && this.config.retryableStatusCodes || defaultRetryableStatusCodes;
-          return Observable.range(1, backoff.maxAttempts + 1)
-            .zip(attempts, (i, response) => ({ response, i }))
-            .flatMap(({ response, i }) => {
+          return range(1, backoff.maxAttempts + 1).pipe(
+            zip(attempts, (i, response) => ({ response, i })),
+            flatMap(({ response, i }) => {
               if (i < backoff.maxAttempts && retryableStatusCodes.indexOf(response.status) >= 0) {
                 // Delay retry by min duration the first attempt, up to max duration on the (maxAttempts)th attempt
-                return Observable.timer(
+                return timer(
                   backoff.minDuration +
                   (i - 1) * (backoff.maxDuration - backoff.minDuration) / backoff.maxAttempts,
                 );
@@ -181,32 +185,35 @@ export class NgrxQueryEffects {
                 // Tried maxAttempts, now fail
                 throw response;
               }
-            });
-        })
-        .catch((errResponse: Response, caught) => {
-          if (!errResponse.text || typeof errResponse.text !== 'function') {
-            throw errResponse;
+            })
+          );
+        }),
+        catchError((errResponse: HttpErrorResponse, caught) => {
+          if (errResponse.error instanceof Error) {
+            throw errResponse.error;
           }
-          const requestFailureAction = actions.requestFailure(
+          const requestFailureAction = actions.requestFailure({
             url,
             body,
-            errResponse.status,
-            errResponse.json(),
+            status: errResponse.status,
+            responseBody: errResponse.error,
             meta,
             queryKey,
-            errResponse.text(),
-            errResponse.headers
-          );
+            responseText: errResponse.error,
+            responseHeaders: errResponse.headers
+          });
           if (this.config.mock && this.config.mock.mode === MockMode.Record) {
             this.config.mock.saveMockData(queryKey, [requestFailureAction]);
           }
-          return Observable.of(requestFailureAction);
-        });
-    });
+          return of(requestFailureAction);
+        })
+      );
+    })
+  );
 
-  @Effect() public mutateAsync: Observable<any> = this.actions$
-    .ofType(ngrxQueryActionTypes.MUTATE_ASYNC)
-    .map((action: any) => {
+  @Effect() public mutateAsync: Observable<any> = this.actions$.pipe(
+    ofType(ngrxQueryActionTypes.MUTATE_ASYNC),
+    map((action: MutateAsyncAction) => {
       const {
         url,
         transform = identity,
@@ -214,7 +221,7 @@ export class NgrxQueryEffects {
         body,
         meta,
         optimisticUpdate,
-        options = <any>{},
+        options = {},
       } = action;
       invariant(!!url, 'Missing required `url` field in action handler');
 
@@ -226,23 +233,24 @@ export class NgrxQueryEffects {
         optimisticEntities = optimisticUpdateEntities(optimisticUpdate, entities);
       }
 
-      const queryKey = reconcileQueryKey(action);
+      const queryKey = getQueryKey(action);
       // const start = new Date();
       const { method = httpMethods.POST } = options;
       const request = {
-        url,
-        method,
         body,
-        headers: options.headers,
+        headers: new HttpHeaders(options.headers),
+        method,
+        observe: 'response' as 'response',
+        url,
         withCredentials: options.credentials === 'include',
       };
 
       // Note: only the entities that are included in `optimisticUpdate` will be passed along in the
       // `mutateStart` action as `optimisticEntities`
-      this.store.dispatch(actions.mutateStart(url, body, request, optimisticEntities, queryKey, meta));
+      this.store.dispatch(actions.mutateStart({url, body, request, optimisticEntities, queryKey, meta}));
       return { ...action, request, entities, queryKey };
-    })
-    .filter((action: any) => {
+    }),
+    filter((action) => {
       if (!this.config.mock || this.config.mock.mode !== MockMode.Mock) {
         // Not mocking so continue
         return true;
@@ -259,19 +267,19 @@ export class NgrxQueryEffects {
           this.store.dispatch(mockAction);
         });
       } else {
-        this.store.dispatch(actions.requestFailure(
+        this.store.dispatch(actions.requestFailure({
           url,
           body,
-          500,
-          'No mock data recorded for ' + queryKey,
+          status: 500,
+          responseBody: 'No mock data recorded for ' + queryKey,
           meta,
           queryKey,
-        ));
+        }));
       }
       // Dispatched mock actions so abort network call
       return false;
-    })
-    .mergeMap((action: any) => {
+    }),
+    mergeMap((action) => {
       const {
         url,
         transform = identity,
@@ -282,37 +290,42 @@ export class NgrxQueryEffects {
         entities,
         queryKey,
       } = action;
-      return this.http.request(url, request)
-        .map(response => {
+      return this.http.request(request.method, url, request).pipe(
+        map(response => {
           if (!response.ok) {
             throw response;
           }
-          const resStatus = (response && response.status) || 0;
-          const resBody = (response && response.json()) || undefined;
-          const resText = (response && response.text()) || undefined;
+          const status = (response && response.status) || 0;
+          const responseBody = (response && response.body) || undefined;
+          const responseText = (response && response.body) || undefined;
 
-          const transformed = transform(resBody, resText, response);
+          const transformed = transform(responseBody, responseText, response);
           const newEntities = updateEntities(update, entities, transformed);
-          return actions.mutateSuccess(url, body, resStatus, newEntities, queryKey, resBody, resText, response.headers, meta);
-        })
-        .catch((errResponse) => {
-          if (!errResponse.text || typeof errResponse.text !== 'function') {
-            throw errResponse;
+          return actions.mutateSuccess({
+            url, body, status, entities: newEntities, queryKey, responseBody, responseText, responseHeaders: response.headers, meta
+          });
+        }),
+        catchError((errResponse: HttpErrorResponse) => {
+          if (errResponse.error instanceof Error) {
+            throw errResponse.error;
           }
-          return Observable.of(
-            actions.mutateFailure(
-              url, body, errResponse.status, entities, queryKey, errResponse.text(), errResponse.text(), errResponse.headers, meta
-            )
+          return of(
+            actions.mutateFailure({
+              url, body, status: errResponse.status, rolledBackEntities: entities, queryKey,
+              responseBody: errResponse.error, responseText: errResponse.error, responseHeaders: errResponse.headers, meta
+            })
           );
-        });
-    });
+        })
+      );
+    })
+  );
   // @Effect() public cancelQuery: Observable<Action> = this.actions$;
   // @Effect() public reset: Observable<Action> = this.actions$;
 
   constructor(
     private actions$: Actions,
     private store: Store<any>,
-    private http: Http,
+    private http: HttpClient,
     @Inject(NGRX_QUERY_CONFIG) private config: NgrxQueryConfig,
   ) { }
 }
