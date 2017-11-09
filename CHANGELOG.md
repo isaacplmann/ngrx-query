@@ -5,6 +5,7 @@
 ### BREAKING CHANGES
 
 * Upgrade to rxjs@5.5
+* Upgrade to redux-query@2.x
 * Uses HttpClient instead of Http
 
 ### Features
