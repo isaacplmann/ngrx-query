@@ -8,13 +8,18 @@
 * Upgrade to redux-query@2.x
 * Uses HttpClient instead of Http
 
-### Features
-
-* Support angular 5.x
-
 ### Bug Fixes
 
 * RequestAsync server error stops listening to subsequent requests
+
+
+<a name="1.0.1"></a>
+# [1.0.1](https://github.com/isaacplmann/ngrx-query) (2017-11-02)
+
+
+### Chore
+
+* Support angular 4.x and 5.x
 
 
 <a name="1.0.0"></a>
