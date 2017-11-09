@@ -1,0 +1,7 @@
+Queries
+<dl *ngIf="queriesList$ | async as queriesList">
+  <ng-container *ngFor="let key of getKeys(queriesList)">
+    <dt>{{key}}</dt>
+    <dd [id]="key">{{queriesList[key] | json}}</dd>
+  </ng-container>
+</dl>

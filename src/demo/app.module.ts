@@ -1,7 +1,6 @@
-import { NetworkLoggerService } from './networkLogger.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApplicationRef, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -11,6 +10,8 @@ import { environment } from '../environments/environment';
 import { entitiesReducer, NgrxQueryModule, queriesReducer } from '../lib';
 import { AppComponent } from './app.component';
 import { MockServerService } from './mockServer';
+import { NetworkLoggerService } from './networkLogger.service';
+import { QueriesListComponent } from './queriesList/queries-list.component';
 import { RangerDetailComponent } from './ranger/ranger-detail.component';
 import { RangerListComponent } from './ranger/ranger-list.component';
 import { RangerListDataDirective } from './ranger/ranger-list.data.directive';
@@ -32,6 +33,7 @@ export function getMockData(queryKey): any[] {
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
+    QueriesListComponent,
     RangerListComponent,
     RangerDetailComponent,
     RangerListDataDirective,

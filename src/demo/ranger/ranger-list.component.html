@@ -1,4 +1,4 @@
-<button (click)="nqRefresh.emit({})">Refresh</button>
+<button id="listRefresh" (click)="nqRefresh.emit({})">Refresh</button>
 <table>
   <tr>
     <th>Name</th>
@@ -25,5 +25,5 @@
 <label for="name">Name</label><br>
 <input type="text" id="name" [(ngModel)]="newRanger.name" placeholder="i.e. Tommy"><br>
 <label for="color">Color</label><br>
-<input type="text" [(ngModel)]="newRanger.color" placeholder="i.e. green"><br>
-<button (click)="create(newRanger)">Add</button>
+<input type="text" id="color" [(ngModel)]="newRanger.color" placeholder="i.e. green"><br>
+<button id="add" (click)="create(newRanger)">Add</button>

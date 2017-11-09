@@ -1,16 +1,26 @@
 <header>
   <h1 class="title">Ngrx Query</h1>
 </header>
+<aside>
+  <nq-queries-list></nq-queries-list>
+</aside>
 <main>
   <h3>Server Status</h3>
-  <label><input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.ON">On</label><br>
-  <label><input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.BUSY">Busy</label><br>
-  <label><input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.ERROR">Error</label><br>
+  <label>
+    <input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.ON">On</label>
+  <br>
+  <label>
+    <input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.BUSY">Busy</label>
+  <br>
+  <label>
+    <input type="radio" [(ngModel)]="mockServer.state" name="serverState" [value]="serverState.ERROR">Error</label>
+  <br>
 
   <p>Open the console to see the fake server calls (using MockBackend).</p>
 
   <h3>Connected Element/Component</h3>
-  <label for="isShown">Show List?</label> <input id="isShown" type="checkbox" [(ngModel)]="isShown">
+  <label for="isShown">Show List?</label>
+  <input id="isShown" type="checkbox" [(ngModel)]="isShown">
   <nq-ranger-list *ngIf="isShown" rangerListData></nq-ranger-list>
 </main>
 <footer>

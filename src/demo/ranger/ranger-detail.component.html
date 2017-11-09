@@ -1,2 +1,2 @@
 <strong>Favorite Color:</strong> {{nqData?.color}}
-<button (click)="nqRefresh.emit({})">Refresh</button>
+<button [id]="'detailRefresh' + nqData?.id" (click)="nqRefresh.emit({})">Refresh</button>
