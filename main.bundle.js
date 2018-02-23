@@ -1536,7 +1536,8 @@ var NgrxQueryEffects = /** @class */ (function () {
                 body: body,
                 headers: options.headers,
                 method: method,
-                observe: 'response',
+                observe: (options.observe || 'response'),
+                responseType: options.responseType,
                 url: url,
                 withCredentials: options.credentials === 'include',
             };
@@ -1651,7 +1652,8 @@ var NgrxQueryEffects = /** @class */ (function () {
                 body: body,
                 headers: new __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["e" /* HttpHeaders */](options.headers),
                 method: method,
-                observe: 'response',
+                observe: (options.observe || 'response'),
+                responseType: options.responseType,
                 url: url,
                 withCredentials: options.credentials === 'include',
             };
