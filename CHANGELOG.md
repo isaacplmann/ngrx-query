@@ -1,3 +1,12 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/isaacplmann/ngrx-query) (2018-02-23)
+
+
+### Features
+
+* Actually uses `responseType` in the `options` object
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/isaacplmann/ngrx-query) (2017-11-08)
 

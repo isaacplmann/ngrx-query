@@ -101,7 +101,8 @@ export class NgrxQueryEffects {
         body,
         headers: options.headers,
         method,
-        observe: 'response' as 'response',
+        observe: (options.observe || 'response') as 'response',
+        responseType: options.responseType,
         url,
         withCredentials: options.credentials === 'include',
       };
@@ -221,7 +222,7 @@ export class NgrxQueryEffects {
         body,
         meta,
         optimisticUpdate,
-        options = {},
+        options = <any>{},
       } = action;
       invariant(!!url, 'Missing required `url` field in action handler');
 
@@ -240,7 +241,8 @@ export class NgrxQueryEffects {
         body,
         headers: new HttpHeaders(options.headers),
         method,
-        observe: 'response' as 'response',
+        observe: (options.observe || 'response') as 'response',
+        responseType: options.responseType,
         url,
         withCredentials: options.credentials === 'include',
       };
