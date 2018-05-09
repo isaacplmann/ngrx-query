@@ -43,3 +43,6 @@ Thumbs.db
 
 # Binary files
 *.tgz
+
+cypress/videos
+cypress/screenshots
