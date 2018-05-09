@@ -1,6 +1,6 @@
 import { ChangeDetectorRef } from '@angular/core';
-import { ConnectRequestDirective, NqConnectedComponent } from './../../lib';
-import { ConnectService } from './../../lib/services/connect.service';
+import { ConnectRequestDirective, NqConnectedComponent } from 'ngrx-query';
+import { ConnectService } from 'ngrx-query';
 import { Directive, Optional } from '@angular/core';
 import { createGetRangerListQuery, rangerListSelector } from './queries';
 

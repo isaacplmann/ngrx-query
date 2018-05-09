@@ -1,3 +1,12 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/isaacplmann/ngrx-query) (2018-05-09)
+
+
+### BREAKING CHANGES
+
+* Requires Angular 6, RxJS 6, ngrx 6
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/isaacplmann/ngrx-query) (2018-02-23)
 

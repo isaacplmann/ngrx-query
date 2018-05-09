@@ -3,7 +3,7 @@ import { mutateAsync, MutateParams, requestAsync, RequestParams } from '../helpe
 import { defaultEntitiesSelector, NGRX_QUERY_CONFIG } from '../helpers/config';
 import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export interface ConnectRequestParams extends RequestParams {
   selector?: Selector;

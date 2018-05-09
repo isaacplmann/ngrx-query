@@ -1,7 +1,7 @@
-import { queriesSelector } from '../app.module';
-import { ConnectService } from '../../lib/services/connect.service';
+import { queriesSelector } from '../selectors';
+import { ConnectService } from 'ngrx-query';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({

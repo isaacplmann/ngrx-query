@@ -7,10 +7,7 @@ import * as actions from 'redux-query/dist/es/actions';
 import * as actionTypes from 'redux-query/dist/es/constants/action-types';
 import * as httpMethods from 'redux-query/dist/es/constants/http-methods';
 import { getQueryKey } from 'redux-query/dist/es/lib/query-key';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { range } from 'rxjs/observable/range';
-import { timer } from 'rxjs/observable/timer';
+import { Observable ,  of ,  range ,  timer } from 'rxjs';
 import { catchError, filter, flatMap, map, mergeMap, retryWhen, tap, zip } from 'rxjs/operators';
 
 import * as ngrxQueryActionTypes from '../helpers/actionTypes';

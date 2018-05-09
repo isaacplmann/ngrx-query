@@ -7,7 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '../environments/environment';
-import { entitiesReducer, NgrxQueryModule, queriesReducer } from '../lib';
+import { entitiesReducer, NgrxQueryModule, queriesReducer } from 'ngrx-query';
 import { AppComponent } from './app.component';
 import { MockServerService } from './mockServer';
 import { NetworkLoggerService } from './networkLogger.service';
@@ -15,13 +15,8 @@ import { QueriesListComponent } from './queriesList/queries-list.component';
 import { RangerDetailComponent } from './ranger/ranger-detail.component';
 import { RangerListComponent } from './ranger/ranger-list.component';
 import { RangerListDataDirective } from './ranger/ranger-list.data.directive';
+import { entitiesSelector, queriesSelector } from './selectors';
 
-export function entitiesSelector(state): any {
-  return state.entities1;
-}
-export function queriesSelector(state): any {
-  return state.queries1;
-}
 export function saveMockData(queryKey, actions): void {
   return window.localStorage.setItem('mockApi-' + queryKey, JSON.stringify(actions));
 }

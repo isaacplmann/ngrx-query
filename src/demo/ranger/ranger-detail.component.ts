@@ -1,4 +1,4 @@
-import { NqConnectedComponent, provideNqConnectedComponent } from '../../lib';
+import { NqConnectedComponent, provideNqConnectedComponent } from 'ngrx-query';
 import { Ranger } from '../mockServer';
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 

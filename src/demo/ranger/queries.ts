@@ -1,7 +1,7 @@
-import { RequestParams } from '../../lib';
-import { arrayToObjectsById, objectsByIdToArray } from '../../lib/services/connectEntity.service';
+import { RequestParams } from 'ngrx-query';
+import { arrayToObjectsById, objectsByIdToArray } from 'ngrx-query';
 import { Ranger } from '../mockServer';
-import { MutateParams } from './../../lib/helpers/actions';
+import { MutateParams } from 'ngrx-query';
 
 export function createGetRangerQuery(id): RequestParams {
   return {

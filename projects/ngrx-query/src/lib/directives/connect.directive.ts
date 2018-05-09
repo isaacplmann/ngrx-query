@@ -3,7 +3,7 @@ import { Optional } from '@angular/core';
 import { HostBinding } from '@angular/core';
 import { ConnectRequestParams, ConnectService } from '../services/connect.service';
 import { Directive, EventEmitter, Input, OnDestroy, OnInit, Output, Host, Type } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { NqConnectedComponent } from './connected.component';
 
 @Directive({

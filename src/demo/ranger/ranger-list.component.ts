@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Ranger } from '../mockServer';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {
   createCreateRangerQuery,
   createDeleteRangerQuery,
@@ -8,7 +8,7 @@ import {
   createUpdateRangerQuery,
   rangerByIdSelector
 } from './queries';
-import { ConnectService, ConnectRequestParams, NqConnectedComponent, provideNqConnectedComponent } from '../../lib';
+import { ConnectService, ConnectRequestParams, NqConnectedComponent, provideNqConnectedComponent } from 'ngrx-query';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
